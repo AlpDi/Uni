@@ -7,7 +7,7 @@ void print_rows();
 
 void main(){
 
-    int n = 10;     //scanf möglich
+    int n = 10;     //scanf possible
 create_raute(n);
 }
 
