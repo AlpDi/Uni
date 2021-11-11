@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 int main() {
-  int16_t y = 1024, z = 65; // auch "short" als Datentyp verwendbar
+  int16_t y = 1024, z = 65; 
 
   y = y * z;
   printf("1. Ausgabe: %d\n", y);  //1024*65 = 66560, range von int16_t ist -32768 bis +32,767 -> 66560 - 65536 = 1024
