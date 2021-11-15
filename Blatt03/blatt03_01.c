@@ -17,5 +17,4 @@ int main()
     return 0;
 }
 
-//double kann 15 nachkommastellen darstellen
-//float kann 8 nachkommastellen darstellen 
+

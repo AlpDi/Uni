@@ -42,7 +42,7 @@ void table(){
 }
 
 void plot(double r){
-    for(double i=3.0; i>0; i = i - 0.1){        //placement of y-axis
+    for(double i=3.0; i>0; i = i - 0.1){        //placement of y-axis | loop for values of u
         printf("|");
         for(double j=k(i,r); j>0; j = j-0.1){   //placement of k value
             printf("   ");
