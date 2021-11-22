@@ -138,8 +138,6 @@ int main(void) {
     print_card(last_layed); printf("\n");
     if (player_active == 1) {
       printf("Auf deiner Hand sind:\n\t");
-
-
       // print player cards
       i = 0;
       player_cards = cards[32 + player_active];
@@ -151,7 +149,22 @@ int main(void) {
         player_cards = cards[player_cards];
         i++;
       }
-      printf("\n");
+      if (1 == 1)
+        printf("\n[1] - Karte legen, [0] Karte ziehen, [-1] Spiel beenden\nDein Zug: ");
+      else
+        printf("\n[1 bis %d] - Karte legen, [0] Karte ziehen, [-1] Spiel beenden\nDein Zug: ", i + 1);
+      k = -2;
+      while (k < -1 || k > i + 1) {
+        scanf("%d", &k);
+        if (k < -1 || k > i + 1)
+          printf("\nUnzulaessige Angabe.\n>");
+      }
+      // hier wichtig...
+      if (k > 0) {
+        TODO "Check Karte legbar"
+      } else if (k == 0) {
+        TODO "Karte ziehen"
+      } else { exit(0); }
     }
 
     getchar();
