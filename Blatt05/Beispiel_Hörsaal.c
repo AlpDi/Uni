@@ -212,7 +212,7 @@ int main(void) {
         pc = cards[NR_CARDS + i]; // first card
         while(pc!=NONE){
             print_card(pc);
-            if(pc[cards]!=NONE)
+            if(cards[pc]!=NONE)
               printf(", ");
             pc = cards[pc];
         }
