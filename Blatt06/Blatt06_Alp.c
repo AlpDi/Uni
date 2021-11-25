@@ -41,6 +41,14 @@ int main(void){
         grid[bmp_y * HEIGHT + Gx] = COLOR_BLACK;
     }
 
+    for(int bmp_x = 0; bmp_x < WIDTH; bmp_x++){
+        toMath(bmp_x, 0, &x, &y);
+        toBMP(x, sin(x), &Gx, &Gy);
+        grid[Gy * WIDTH + bmp_x] = COLOR_GREEN;
+    }
+
     bmp_create("ex1.bmp", grid, WIDTH, HEIGHT);
+    free(grid);
+    return 0;
 }
 
