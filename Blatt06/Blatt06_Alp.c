@@ -14,6 +14,10 @@
 #define yMin -10.00
 #define yMax  10.00
 
+float u(float k, float r){
+    return k/(1+k*(1-k)*r);
+}
+
 int toMath(int bmp_x, int bmp_y, double *x, double *y){
     *x = xMin + (bmp_x * (xMax - xMin)) / WIDTH;
     *y = yMin + ((HEIGHT - bmp_y) * (yMax - yMin) / HEIGHT);
@@ -45,6 +49,12 @@ int main(void){
         toMath(bmp_x, 0, &x, &y);
         toBMP(x, sin(x), &Gx, &Gy);
         grid[Gy * WIDTH + bmp_x] = COLOR_GREEN;
+    }
+
+    for(int bmp_x = 0; bmp_x < WIDTH; bmp_x++){   //TODO: Graphen abhängig von k machen
+        toMath(bmp_x, 0, &x, &y);
+        toBMP(x, u(0.2, 1), &Gx, &Gy);
+        grid[Gy * WIDTH + bmp_x] = COLOR_BLUE;
     }
 
     bmp_create("ex1.bmp", grid, WIDTH, HEIGHT);
