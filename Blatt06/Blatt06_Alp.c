@@ -9,10 +9,10 @@
 #define GRID_HALF 1000/2
 
 
-#define xMin -10.00
-#define xMax  10.00
-#define yMin -10.00
-#define yMax  10.00
+#define xMin -1.00
+#define xMax  1.00
+#define yMin -1.00
+#define yMax  1.00
 
 float u(float k, float r){
     return k/(1+k*(1-k)*r);
@@ -30,7 +30,6 @@ int toBMP(double x, double y, int *bmp_x, int *bmp_y){
 
 
 int main(void){
-    
     int Gx, Gy;
     double x,y;
 
@@ -49,11 +48,16 @@ int main(void){
         toMath(bmp_x, 0, &x, &y);
         toBMP(x, sin(x), &Gx, &Gy);
         grid[Gy * WIDTH + bmp_x] = COLOR_GREEN;
+        //printf("%d  %f\n", bmp_x, sin(x));
     }
 
-    for(int bmp_x = 0; bmp_x < WIDTH; bmp_x++){   //TODO: Graphen abhängig von k machen
+    
+    for(int bmp_x = 500; bmp_x < 1000; bmp_x++){  //TODO: Graphen abhängig von k machen
         toMath(bmp_x, 0, &x, &y);
-        toBMP(x, u(0.2, 1), &Gx, &Gy);
+        float a = (float)x/10;
+        float b = u(x,1);
+        toBMP(x, b, &Gx, &Gy);
+        printf("%f   %f  %f   %f\n", x, u(x,10),  a, sin(x));
         grid[Gy * WIDTH + bmp_x] = COLOR_BLUE;
     }
 
