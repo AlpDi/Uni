@@ -32,8 +32,9 @@ int springer( int zeile, int spalte, int num ){
             if(!board[nzeile][nspalte]){
 
                 //Ende oder Rekursion
-                if(num == MAX || springer(nzeile, nspalte, num+1)){
-                    printf("%d ok: %d,%d\n", num, nzeile,nspalte);
+                if(num == MAX || springer(nzeile, nspalte, num+1)){ //TODO or mit else ersetzen
+                    board[nzeile][nspalte] = 0;
+                    printf("%d: %d,%d\n", num, nzeile,nspalte);
                     return 1;
                 }
             }
@@ -49,7 +50,7 @@ int main(void) {
 
     
     springer(0, 0, 1);
-    printf("%d ok: %d,%d\n", 0,0,0);
+    printf("%d: %d,%d\n", 0,0,0);
    
     return 0;
     

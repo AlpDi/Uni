@@ -3,14 +3,15 @@
 #include <stdio.h>
 #include <complex.h>
 #include <stdlib.h>
+#include <gdiplus.h>
 #include "libBMP.h"
-#define W  12800
-#define H  6400
+#define W  6400
+#define H  3200
 #define xMin -2.0
 #define xMax  1.0
 #define yMin -1.0
 #define yMax  1.0
-#define nMax 200
+#define nMax 500
 
 void toMath(int bmp_x , int bmp_y, double* x, double* y) {
     
