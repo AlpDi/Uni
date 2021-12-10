@@ -4,6 +4,13 @@
 
 #include "convex_hull_alp.h"
 
+void print_points(double x[], double y[], int N){
+     
+    for (int i = 0; i < N; i++){
+        printf("%d. %lf %lf\n",i, y[i], x[i] );
+    }
+}
+
 void read_points(int n, double x[], double y[]){
     for(int i = 0; i < n; i++){
         printf("x-Wert: \n");
@@ -12,10 +19,6 @@ void read_points(int n, double x[], double y[]){
         scanf("%lf", &y[i]);
     }
 }
-
-
-
-
 
 
 void rand_points(int n, double x[], double y[]){
@@ -27,7 +30,28 @@ void rand_points(int n, double x[], double y[]){
 }
 
 
-void display_corners(int m, double x[], double y[], int c[]);
-void switch_point(int n, double x[], double y[], int* i_start, int* i_switch );
-int hull(int n, double x[], double y[], int c[]);
+void display_corners(int m, double x[], double y[], int c[]){
+    for(int i = 0; i < m; i++){
+        printf("x: %lf y: %lf\n", x[c[i]], y[c[i]]);
+    }
+}
+
+
+void switch_point(int n, double x[], double y[], int* i_start, int* i_switch ){
+   
+            
+    int min = y[0];  
+    int max = y[0];
+    //returns index of min(y) and max(x)
+    for (int i = 0; i < n; i++) {     
+        if(y[i] < min){min = y[i]; *i_start = i;}
+        if(y[i] > max){max = y[i]; *i_switch = i;}    
+    }
+}
+
+
+
+int hull(int n, double x[], double y[], int c[]){
+
+}
 void plot_hull(int m, int n, double x[], double y[], int c[]);
