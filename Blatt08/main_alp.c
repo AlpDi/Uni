@@ -31,8 +31,9 @@ int main(void){
     double y[N];
     rand_points(N,x,y);
     print_points(x,y,N); 
-    switch_point(N,y,x,&i_start,&i_switch);
-    printf("%d %d\n", i_start, i_switch);
+    switch_point(N,x,y,&i_start,&i_switch);
+    printf("%d %d\n %lf %lf\n", i_start, i_switch, y[i_start], y[i_switch]);
+
     
     
 }

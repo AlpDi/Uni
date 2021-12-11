@@ -7,7 +7,7 @@
 void print_points(double x[], double y[], int N){
      
     for (int i = 0; i < N; i++){
-        printf("%d. %lf %lf\n",i, y[i], x[i] );
+        printf("%d. %lf %lf\n",i, x[i], y[i] );
     }
 }
 
@@ -22,6 +22,10 @@ void read_points(int n, double x[], double y[]){
 
 
 void rand_points(int n, double x[], double y[]){
+    
+    time_t t;
+
+    srand((unsigned) time(&t));
 
     for(int i = 0; i < n; i++){
         x[i] = 20 * ( (1.0*rand() )/RAND_MAX) - 10;
