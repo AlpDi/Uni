@@ -5,6 +5,24 @@
 
 #include "convex_hull_alp.h"
 
+#define W 1000
+#define H 1000
+
+#define xMin -1.00
+#define xMax  1.00
+#define yMin -1.00
+#define yMax  1.00
+
+int toMath(int bmp_x, int bmp_y, double *x, double *y, int WIDTH,int HEIGHT){
+    *x = xMin + (bmp_x * (xMax - xMin)) / WIDTH;
+    *y = yMin + ((HEIGHT - bmp_y) * (yMax - yMin) / HEIGHT);
+}
+
+int toBMP(double x, double y, int *bmp_x, int *bmp_y, int WIDTH, int HEIGHT){
+    *bmp_x=((x-xMin)*WIDTH)/(xMax-xMin);
+    *bmp_y=HEIGHT-((y-yMin)*HEIGHT)/(yMax-yMin);
+}
+
 void print_points(double x[], double y[], int N){
      
     for (int i = 0; i < N; i++){
@@ -110,4 +128,7 @@ int hull(int n, double x[], double y[], int c[]){
 
 void plot_hull(int m, int n, double x[], double y[], int c[]){
     m = hull(n,x,y,c);
+    for(int i = 0; i < n; i++){
+        
+    }
 }

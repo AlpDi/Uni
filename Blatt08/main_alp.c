@@ -11,15 +11,7 @@
 #define yMin -1.00
 #define yMax  1.00
 
-int toMath(int bmp_x, int bmp_y, double *x, double *y){
-    *x = xMin + (bmp_x * (xMax - xMin)) / WIDTH;
-    *y = yMin + ((HEIGHT - bmp_y) * (yMax - yMin) / HEIGHT);
-}
 
-int toBMP(double x, double y, int *bmp_x, int *bmp_y){
-    *bmp_x=((x-xMin)*WIDTH)/(xMax-xMin);
-    *bmp_y=HEIGHT-((y-yMin)*HEIGHT)/(yMax-yMin);
-}
 
 int main(void){
     int n;
