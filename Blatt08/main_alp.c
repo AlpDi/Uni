@@ -26,14 +26,14 @@ int main(void){
     int i_switch = 0;
     int c[N];
     int grid = (int*)malloc(WIDTH * HEIGHT * sizeof(int));
+    int m;
 
     double x[N];
     double y[N];
     rand_points(N,x,y);
-    print_points(x,y,N); 
-    switch_point(N,x,y,&i_start,&i_switch);
-    printf("%d %d\n %lf %lf\n", i_start, i_switch, y[i_start], y[i_switch]);
-    hull(N, x, y, c);
+    m = hull(N,x,y,c);
+    printf("%d", m);
+    //plot_hull(m, N, x,y,c);
 
     
     

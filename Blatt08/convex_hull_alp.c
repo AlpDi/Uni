@@ -67,7 +67,7 @@ int hull(int n, double x[], double y[], int c[]){
     double phi = atan2((x[0]-x[0]),(y[0]-y[0]));;
     double phi_s;
     double length;
-    printf("%lf", phi_s);
+    
     
     if(n==1){return 1;}
     for(int i = 0; i<n; i++){
@@ -107,7 +107,8 @@ int hull(int n, double x[], double y[], int c[]){
         }
     }
 }
+
 void plot_hull(int m, int n, double x[], double y[], int c[]){
-    hull(n,x,y,c);
-    for 
+    m = hull(n,x,y,c);
+    display_corners(m,x,y,c);
 }
