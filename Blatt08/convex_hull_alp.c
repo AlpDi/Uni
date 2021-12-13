@@ -153,8 +153,18 @@ void plot_hull(int m, int n, double x[], double y[], int c[]){
   int grid = (int*)malloc(WIDTH* HEIGTH * sizeof(int));
   for (int i = 0; i < WIDTH * HEIGTH; i++) {grid[i] = COLOR_WHITE;}
 
-
-  for ?
+  int last_point = m;
+  for (int i = 0; i < m; i++) {
+    double a = y[c[i]] - y[c[last_point]];
+    double b = y[c[last_point]] - y[c[i]];
+    double c = a * x[c[last_point]] + b * y[c[last_point]];
+    last_point = i;
+    for (int j = 0; j < WIDTH * HEIGTH; j++) {
+      if (a * (j % WIDTH) + b * (j / WIDTH) == c) {
+        grid[j] = COLOR_RED;
+      }
+    }
+  }
 
 
   for (int i = 0; i < n; i++) {
