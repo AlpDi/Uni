@@ -14,12 +14,12 @@
 
 
 int main(void){
-    int n;
+    int n = 0;
     int i_start = 0;
     int i_switch = 0;
     double x[n];
     double y[n];
-    int c;
+    int c[n];
     int m;
     int M;
     int grid = (int*)malloc(WIDTH * HEIGHT * sizeof(int));

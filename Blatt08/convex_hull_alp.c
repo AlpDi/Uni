@@ -50,6 +50,9 @@ void rand_points(int n, double x[], double y[]){
         x[i] = 20 * ( (1.0*rand() )/RAND_MAX) - 10;
         y[i] = 20 * ( (1.0*rand() )/RAND_MAX) - 10;    
     }
+    for(int i = 0; i < n; i++){
+        printf("%lf  %lf\n", x[i], y[i]);
+    }
 }
 
 
@@ -123,12 +126,11 @@ int hull(int n, double x[], double y[], int c[]){
             up = 0;
             m++;
         }
+         
     }
 }
 
 void plot_hull(int m, int n, double x[], double y[], int c[]){
-    m = hull(n,x,y,c);
-    for(int i = 0; i < n; i++){
-        
-    }
+    int M = hull(n,x,y,c);
+    printf("%d", M);
 }
