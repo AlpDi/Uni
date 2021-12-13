@@ -110,5 +110,4 @@ int hull(int n, double x[], double y[], int c[]){
 
 void plot_hull(int m, int n, double x[], double y[], int c[]){
     m = hull(n,x,y,c);
-    display_corners(m,x,y,c);
 }
