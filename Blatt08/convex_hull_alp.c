@@ -61,6 +61,7 @@ int hull(int n, double x[], double y[], int c[]){
     int i_switch = 0;
     int m = 1;
     int up = 1;
+    int J = 0;
     double Qx = 0;
     double Qy = 0;
     double phi = atan2((x[0]-x[0]),(y[0]-y[0]));;
@@ -86,8 +87,27 @@ int hull(int n, double x[], double y[], int c[]){
         length = hypot(Qx, Qy);
         if(up == 1&&phi < phi_s){
             phi_s = phi;
+            J = j;
         }
-
+        if(up == 0&&phi > phi_s){
+            phi_s = phi;
+            J = j;
+        }
+        if(j == 0){
+            return m;
+        }
+        if(m != j){
+            int temp = c[m];
+            c[m] = c[j];
+            c[j] = temp;
+        }
+        if(c[m] == i_switch){
+            up = 0;
+            m++;
+        }
     }
 }
-void plot_hull(int m, int n, double x[], double y[], int c[]);
+void plot_hull(int m, int n, double x[], double y[], int c[]){
+    hull(n,x,y,c);
+    for 
+}
