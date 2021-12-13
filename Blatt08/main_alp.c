@@ -24,7 +24,7 @@ int toBMP(double x, double y, int *bmp_x, int *bmp_y){
 int main(void){
     int i_start = 0;
     int i_switch = 0;
-
+    int c[N];
     int grid = (int*)malloc(WIDTH * HEIGHT * sizeof(int));
 
     double x[N];
@@ -33,6 +33,7 @@ int main(void){
     print_points(x,y,N); 
     switch_point(N,x,y,&i_start,&i_switch);
     printf("%d %d\n %lf %lf\n", i_start, i_switch, y[i_start], y[i_switch]);
+    hull(N, x, y, c);
 
     
     
