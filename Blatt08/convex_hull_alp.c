@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-
+#include "libBMP.h"
 #include "convex_hull_alp.h"
 
 #define W 1000
@@ -50,9 +50,6 @@ void rand_points(int n, double x[], double y[]){
         x[i] = 20 * ( (1.0*rand() )/RAND_MAX) - 10;
         y[i] = 20 * ( (1.0*rand() )/RAND_MAX) - 10;    
     }
-    for(int i = 0; i < n; i++){
-        printf("%lf  %lf\n", x[i], y[i]);
-    }
 }
 
 
@@ -80,6 +77,7 @@ void switch_point(int n, double x[], double y[], int* i_start, int* i_switch ){
 int hull(int n, double x[], double y[], int c[]){
     int i_start = 0;
     int i_switch = 0;
+    int j;
     int m = 1;
     int up = 1;
     int J = 0;
@@ -99,10 +97,12 @@ int hull(int n, double x[], double y[], int c[]){
         c[0] = i_start;
         c[i_start] = 0;
     }
-    for(int j = m; j < n; j++){
-        if(j == n-1){j=0;}
+    for(int j_ = m; j_ <= n; j_++){
+        //cyclic loop
+        j = j_%n;
         Qx = x[c[j]] - x[c[m-1]];
         Qy = y[c[j]] - y[c[m-1]];
+        //angle between Qj and x-axis
         phi = atan2(Qx, Qy);
         if(j==1){phi_s = phi;}
         length = hypot(Qx, Qy);
@@ -114,7 +114,7 @@ int hull(int n, double x[], double y[], int c[]){
             phi_s = phi;
             J = j;
         }
-        if(j == 0){
+        if((x[c[J]] == x[c[0]]) && y[c[J]] == x[c[0]]){
             return m;
         }
         if(m != j){
@@ -124,13 +124,46 @@ int hull(int n, double x[], double y[], int c[]){
         }
         if(c[m] == i_switch){
             up = 0;
-            m++;
         }
-         
+        m++;
     }
 }
 
 void plot_hull(int m, int n, double x[], double y[], int c[]){
-    int M = hull(n,x,y,c);
-    printf("%d", M);
+  double smallest_x = x[0];
+  double smallest_y = y[0];
+  double biggest_x = x[0];
+  double biggest_y = y[0];
+  for (int i = 1; i < n; i++) {
+    if (smallest_x > x[i]) {smallest_x = x[i];}
+    if (smallest_y > y[i]) {smallest_y = y[i];}
+    if (biggest_x > x[i]) {biggest_x = x[i];}
+    if (biggest_y > y[i]) {biggest_y = y[i];}
+  }
+
+  int *grid = (int*)malloc(W* H * sizeof(int));
+  for (int i = 0; i < W * H; i++) {grid[i] = COLOR_WHITE;}
+
+  int last_point = m;
+  for (int i = 0; i < m; i++) {
+    double a = y[c[i]] - y[c[last_point]];
+    double b = y[c[last_point]] - y[c[i]];
+    double d = a * x[c[last_point]] + b * y[c[last_point]];
+    last_point = i;
+    for (int j = 0; j < W * H; j++) {
+      if (a * (j % W) + b * (j / W) == d) {
+        grid[j] = COLOR_RED;
+      }
+    }
+  }  
+
+
+  for (int i = 0; i < n; i++) {
+    int bmp_x, bmp_y;
+    toBMP(x[i], y[i], bmp_x, bmp_y, W, H);
+    grid[bmp_x + bmp_y * W] = COLOR_BLACK;
+  }
+  bmp_create("hull.bmp", grid, W, H);
+    free(grid);
+
 }

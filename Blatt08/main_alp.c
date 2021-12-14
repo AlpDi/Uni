@@ -1,5 +1,5 @@
 #include "convex_hull_alp.h"
-#include "libBMP.h"
+
 #include <stdio.h>
 
 
@@ -15,14 +15,12 @@
 
 int main(void){
     int n = 0;
-    int i_start = 0;
-    int i_switch = 0;
     double x[n];
     double y[n];
     int c[n];
     int m;
     int M;
-    int grid = (int*)malloc(WIDTH * HEIGHT * sizeof(int));
+    
 
     while (1) {
         printf(" 1) Anzahl der Punkte festlegen\n 2) Punkte von Tastatur einlesen\n 3) Zufallspunkte erzeugen\n 4) Eckpunkte der konvexen Huelle berechnen und ausgeben\n 5) Konvexe Huelle als BMP-Datei ausgeben\n 6) Programm beenden\n");
@@ -46,4 +44,5 @@ int main(void){
             } else {return 1;}
         }
     }
+    
 }
