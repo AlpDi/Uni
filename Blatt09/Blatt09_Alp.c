@@ -30,7 +30,7 @@ int main(void){
     for(int i = 0; i < N; i++){
         Ausgabe(Studenten[i]);
     }
-
+    //vertauschen des ersten und letzten elements
     temp = Studenten[0];
     Studenten[0] = Studenten[N-1];
     Studenten[N-1] = temp;
