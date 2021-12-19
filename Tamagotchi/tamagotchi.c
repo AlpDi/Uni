@@ -5,7 +5,7 @@
 tamagotchi pet_init(char *name){
     tamagotchi pet;
     pet.name = name;
-    pet.food_status = 3;
+    pet.food_status = 0;
     pet.happy_status = 3;
     pet.discipline = 0;
     pet.stage = 0;
@@ -15,7 +15,7 @@ tamagotchi pet_init(char *name){
     return pet;
 }
 
-tamagotchi print_pet(tamagotchi pet){
+void print_pet(tamagotchi pet){
     printf("%s\n", pet.name);
     printf("%d\n", pet.food_status);
     printf("%d\n", pet.happy_status);
@@ -25,7 +25,11 @@ tamagotchi print_pet(tamagotchi pet){
     printf("%d\n", pet.health);
 }
 
-void feed(tamagotchi pet, int food);
+void feed(tamagotchi pet, int food){
+    pet.food_status = pet.food_status + food;
+}
+
+
 void play(tamagotchi pet);
 void scold(tamagotchi pet);
 

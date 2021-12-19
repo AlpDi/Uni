@@ -16,19 +16,26 @@ Sprites sprites_init(){
      sprites.baby = "\
               .-.\n\
      (_______()6 `-,\n\
-     (   __   /''`\n\
-     //\\\\ //\\\\ \0";
+     (   __   /''` ___\n\
+     //\\\\ //\\\\    /___\\ \0";
+
+
+     sprites.teen = "\
+                   .-.\n\
+     (____________()6 `-,\n\
+     (   _______   /''` ___\n\
+     //\\\\      //\\\\    /___\\ \0";
 
      sprites.adult = "\
                                   .-.\n\
      (___________________________()6 `-,\n\
-     (   ______________________   /''`\n\
-     //\\\\                      //\\\\ \0";
+     (   ______________________   /''`  ___\n\
+     //\\\\                      //\\\\    /___\\ \0";
 
 
     return sprites;
 }
 
 Sprites print_sprites(Sprites sprites){
-    printf("%s\n\n%s\n\n%s", sprites.egg, sprites.baby, sprites.adult);
+    printf("%s\n\n%s\n\n%s\n\n%s\n\n", sprites.egg, sprites.baby,sprites.teen, sprites.adult);
 }
