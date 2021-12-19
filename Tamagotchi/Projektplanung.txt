@@ -1,0 +1,14 @@
+A)
+-Bei Ausführen des Programms wird gefragt ob man ein neues spiel starten möchte oder eins laden möchte
+-Bei einem neuen spiel schlüpft der tamagotchi aus einem Ei und wird benannt
+-Der tamagotchi hat ein Hunger-, Fröhlichkeits- und Disziplinmeter
+    -Hungermeter wird gefüllt indem man ihn mit essen oder snacks füttert
+    -Fröhlichkeit indem man mit ihm spiele spielt(TicTacToe?)
+    -Disziplin in dem man ihn bestraft wenn er eine aktion verweigert
+-Der Tamagotchi kann krank werden wenn man ihn nicht sauber macht, zu viele snacks füttert
+    -Tamagotchi kann nicht gefüttert werden solange er krank ist, kann auch an krankheit sterben
+    -kann durch medizin geheilt werden
+
+
+
+B)
