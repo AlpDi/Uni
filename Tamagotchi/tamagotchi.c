@@ -28,3 +28,4 @@ tamagotchi print_pet(tamagotchi pet){
 void feed(tamagotchi pet, int food);
 void play(tamagotchi pet);
 void scold(tamagotchi pet);
+
