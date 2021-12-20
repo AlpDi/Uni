@@ -13,7 +13,7 @@ typedef struct tamagotchi{
 
 tamagotchi pet_init(char* name);
 
-void feed(tamagotchi pet, int food);
+void feed(tamagotchi *pet, int food);
 void play(tamagotchi happy_status);
 void scold(tamagotchi discipline_status);
 

@@ -10,6 +10,7 @@ EXECUTABLE = -o tamagotchi
 
 main: main.o tamagotchi.o sprites.o
 	gcc $(EXECUTABLE) $(OBJECTS) $(FLAGS) 
+	./tamagotchi
 
 main.o: main.c
 	gcc -c main.c $(FLAGS)
@@ -22,4 +23,7 @@ sprites.o: sprites.c
 
 clean:
 	rm *.o tamagotchi
+
+
+
 

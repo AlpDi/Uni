@@ -25,8 +25,8 @@ void print_pet(tamagotchi pet){
     printf("%d\n", pet.health);
 }
 
-void feed(tamagotchi pet, int food){
-    pet.food_status = pet.food_status + food;
+void feed(tamagotchi *pet, int food){
+    pet->food_status = pet->food_status + food;
 }
 
 

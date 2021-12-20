@@ -1,5 +1,9 @@
 A)
+-Das Spiel hat ein Menü
 -Bei Ausführen des Programms wird gefragt ob man ein neues spiel starten möchte oder eins laden möchte
+-Bei einem neuen Spiel wird ein Speicherstand erstellt der die parameter des tamagotchi speichert und 
+ durch einen zeitstempel ermöglicht ein spiel im hintergrund zu simulieren
+-Wenn man ein Spiel lädt kann die verstrichene zeit simuliert werden
 -Bei einem neuen spiel schlüpft der tamagotchi aus einem Ei und wird benannt
 -Der tamagotchi hat ein Hunger-, Fröhlichkeits- und Disziplinmeter
     -Hungermeter wird gefüllt indem man ihn mit essen oder snacks füttert
@@ -8,6 +12,8 @@ A)
 -Der Tamagotchi kann krank werden wenn man ihn nicht sauber macht, zu viele snacks füttert
     -Tamagotchi kann nicht gefüttert werden solange er krank ist, kann auch an krankheit sterben
     -kann durch medizin geheilt werden
+-Der Tamagotchi durchläuft 4 Altersstufen(Ei, baby, teenager, Erwachsener)
+
 
 
 
