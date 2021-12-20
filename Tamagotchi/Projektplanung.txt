@@ -1,4 +1,4 @@
-A)
+A) Spezifikationen
 -Das Spiel hat ein Menü
 -Bei Ausführen des Programms wird gefragt ob man ein neues spiel starten möchte oder eins laden möchte
 -Bei einem neuen Spiel wird ein Speicherstand erstellt der die parameter des tamagotchi speichert und 
