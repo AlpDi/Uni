@@ -18,3 +18,10 @@ A) Spezifikationen
 
 
 B)
+tamagotchi.c:
+-void play(tamagotchi pet);
+-void init_display(Sprites sprites, tamagotchi pet);
+
+-struct tamagotchi;
+sprites.c:
+main.c:
