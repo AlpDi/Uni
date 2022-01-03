@@ -24,16 +24,22 @@ tamagotchi.c:
 -void play(tamagotchi pet);
 -tamagotchi pet_init(char* name);
 -void print_display(Sprites sprites, tamagotchi pet);
--void load();
+-void load(FILE savefile);
+-void save(tamagotchi pet, FILE savefile);
 -void feed(tamagotchi *pet, int food);
--void play(tamagotchi happy_status);
--void scold(tamagotchi discipline_status);
+-void play(tamagotchi *pet);
+-void scold(tamagotchi *pet);
+-void age(tamagotchi *pet);
 
 -struct tamagotchi;
-
+----------------------------------------------------------
 sprites.c:
 -Sprites sprites_init();
 
 -struct Sprites;
 
+-contains the sprites for the tamagotchi 
+----------------------------------------------------------
 main.c:
+-game loop
+-keyboard input
