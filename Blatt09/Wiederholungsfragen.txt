@@ -1,5 +1,5 @@
 Welche ganzzahligen Datentypen gibt es in C?
-    Int, short, Long, unsigned 
+    Int, short, Long, unsigned Int
 Was sind die Gleitpunkt-Datentypen in C?
     float, double
 Wie werden ganze Zahlen im Zweierkomplement kodiert?
@@ -17,25 +17,25 @@ Wie werden in C Zeichenketten (Strings) realisiert?
 Wie wird eine Funktion in C deklariert (Rückgabetyp, Eingabeargumente,. . .)?
 	Rückgabetyp Name(Übergabetyp1 Übergabename1, Übergabetyp2, Übergabename2, ...) {}
 Welche Kontrollfluss-Anweisungen in C kennen Sie bereits (Übersichtstabelle)?
-
+	If, If-else, switch-case, while, do-while, for, goto
 Was sind Arrays, wie werden sie definiert und wozu dienen sie? Welche Möglichkeiten kennen Sie, um ein Array zu initialisieren?
-
+	Indizierte Auflistung von Inhalten gleichen Types
 Was ist ein Zeiger, wie wird er in C deklariert und was ist sein Datentyp?
-
+	Ein Zeiger zeigt auf eine Adresse im Speicher, 
 Welcher Zusammenhang besteht zwischen Zeigern und Arrays?
-
+	Ein Array wird als pointer des ersten Elements des Arrays gespeichert
 Was passiert bei:int a[2] = {1,2}, *pa = a; pa = pa + 1; *pa = 0;?
-
+	a ist ein Array, *pa ist ein pointer aufs array, pa ist eine kopie der adresse von a[0], pa wird auf das zweite element gesetzt und der Inhalt wird 0.
 Geben Sie zwei Möglichkeiten an, um auf das n-te Element des Arraysazuzugreifen!
-
+	Array[n], *Array+n
 Was sind dynamische Arrays, wie werden sie erzeugt und was ist dabei zu beachten?
-
-Was ist der Unterschied zwischenCall-by-ValueundCall-by-Reference?
-
-Geben Sie ein kurzes Beispiel fürCall-by-ValueundCall-by-Reference?
+	mit malloc alloziierter speicher, werden benötigt wenn man bei kompilierung noch nicht die speichergröße kennt, beachtung free
+Was ist der Unterschied zwischen Call-by-Value und Call-by-Reference?
+	Bei CbV wird der Wert nur als Kopie übergeben, bei CbR wird die Adresse übergeben und direkt dort reingeschrieben
+Geben Sie ein kurzes Beispiel für Call-by-Value und Call-by-Reference?
 
 Was sind die Vor- und Nachteile von rekursiven und nicht rekursiven Funktionen?
-
+	man ist in der rekursionstiefe beschränkt, 
 Schreiben Sie eine rekursive Funktion, welche die Fakultät einer Zahlnzurück gibt?
 	int faculty(unsigned int number) {
 		if (number == 0) {
@@ -47,7 +47,8 @@ Schreiben Sie eine rekursive Funktion, welche die Fakultät einer Zahlnzurück g
 Was ist die Aufgabe des Präprozessors, wann wird er aufgerufen und von wem?
 	der Präprozessor wird vom Compiler aufgerufen und vereinfacht den Code, indem er Makros einsetzt und Kommentare entfernt
 Welche Präprozessor-Anweisungen kennen Sie und was ist deren Bedeutung?
-
+	Include, Define, 
 Wie wird die scanf()-Funktion aufgerufen (kleines Beispiel)?
-
+	int k; scanf("%d", &k);
 Worin unterscheiden sich die Funktionen fscanf, scanf und sscanf?
+	fscanf ist für files, scanf für tastatureingabe, sscanf für strings
