@@ -1,27 +1,31 @@
 A) Spezifikationen
 -Das Spiel hat ein Menü
--Bei Ausführen des Programms wird gefragt ob man ein neues spiel starten möchte oder eins laden möchte
--Bei einem neuen Spiel wird ein Speicherstand erstellt der die parameter des tamagotchi speichert und 
- durch einen zeitstempel ermöglicht ein spiel im hintergrund zu simulieren
--Wenn man ein Spiel lädt kann die verstrichene zeit simuliert werden
--Bei einem neuen spiel schlüpft der tamagotchi aus einem Ei und wird benannt
--Der tamagotchi hat ein Hunger-, Fröhlichkeits- und Disziplinmeter
-    -Hungermeter wird gefüllt indem man ihn mit essen oder snacks füttert
-    -Fröhlichkeit indem man mit ihm spiele spielt(TicTacToe?)
-    -Disziplin in dem man ihn bestraft wenn er eine aktion verweigert
--Der Tamagotchi kann krank werden wenn man ihn nicht sauber macht, zu viele snacks füttert
-    -Tamagotchi kann nicht gefüttert werden solange er krank ist, kann auch an krankheit sterben
-    -kann durch medizin geheilt werden
--Der Tamagotchi durchläuft 4 Altersstufen(Ei, baby, teenager, Erwachsener)
+-Bei Ausführen des Programms wird gefragt, ob man ein neues Spiel starten oder einen vorhandenen Spielstand laden möchte
+-Bei einem neuen Spiel wird ein Speicherstand erstellt, der die Parameter des Tamagotchi speichert und
+ durch einen Zeitstempel ermöglicht, ein spiel im Hintergrund zu simulieren
+-Wenn man ein Spiel lädt kann die verstrichene Zeit simuliert werden
+-Bei einem neuen Spiel schlüpft der Tamagotchi aus einem Ei und wird benannt
+-Der Tamagotchi hat ein Hunger-, Fröhlichkeits- und Disziplinmeter
+    -Hungermeter wird gefüllt indem man ihn mit Essen oder Snacks füttert
+    -Fröhlichkeit indem man mit ihm Spiele spielt(TicTacToe?)
+    -Disziplin in dem man ihn bestraft wenn er eine Aktion verweigert
+-Der Tamagotchi kann krank werden, wenn man ihn nicht sauber macht oder zu viele Snacks füttert
+    -Tamagotchi kann nicht gefüttert werden, solange er krank ist, er kann auch an krankheit sterben
+    -kann durch Medizin geheilt werden
+-Der Tamagotchi durchläuft 4 Altersstufen(Ei, Baby, Teenager, Erwachsener)
 
 
 
 
-B)
+B) Design
+
 tamagotchi.c:
 -void play(tamagotchi pet);
 -void init_display(Sprites sprites, tamagotchi pet);
 
 -struct tamagotchi;
+
 sprites.c:
+
+
 main.c:

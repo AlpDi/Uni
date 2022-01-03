@@ -4,21 +4,21 @@ Was sind die Gleitpunkt-Datentypen in C?
     float, double
 Wie werden ganze Zahlen im Zweierkomplement kodiert?
     
-Worin unterscheiden sichsignedundunsignedIntegerzahlen?
-
+Worin unterscheiden sich signed und unsigned Integerzahlen?
+	signed -> mit Vorzeichen, unsigned -> ohne vorzeichen (nur positiv) => größte Zahl doppelt so hoch
 Was ist ein„wrap around“und wann tritt er auf?
-
-Wie wird einefloat-Zahl in IEEE 754 kodiert?
+	das überschreiten der maximal kodierbaren Zahl, resutliert bei int in der kleinsten möglichen Zahl
+Wie wird eine float-Zahl in IEEE 754 kodiert?
 
 Wie heißt der Zeichen-Datentyp in C, was sind ASCII-Zeichen?
-
+	char, ASCII-Zeichen = American Standard Code for Information Interchange, deckt die funktionsweise von Schreibmaschinen und frühen druckern ab
 Wie werden in C Zeichenketten (Strings) realisiert?
-
+	arrays von char
 Wie wird eine Funktion in C deklariert (Rückgabetyp, Eingabeargumente,. . .)?
-
+	Rückgabetyp Name(Übergabetyp1 Übergabename1, Übergabetyp2, Übergabename2, ...) {}
 Welche Kontrollfluss-Anweisungen in C kennen Sie bereits (Übersichtstabelle)?
 
-Was sind Arrays, wie werden sie definiert und wozu dienen sie?Welche Möglichkeiten kennen Sie, um ein Array zu initialisieren?
+Was sind Arrays, wie werden sie definiert und wozu dienen sie? Welche Möglichkeiten kennen Sie, um ein Array zu initialisieren?
 
 Was ist ein Zeiger, wie wird er in C deklariert und was ist sein Datentyp?
 
@@ -37,11 +37,17 @@ Geben Sie ein kurzes Beispiel fürCall-by-ValueundCall-by-Reference?
 Was sind die Vor- und Nachteile von rekursiven und nicht rekursiven Funktionen?
 
 Schreiben Sie eine rekursive Funktion, welche die Fakultät einer Zahlnzurück gibt?
-
+	int faculty(unsigned int number) {
+		if (number == 0) {
+			return 1;
+		} else {
+			return number * faculty(number - 1);
+		}
+	}
 Was ist die Aufgabe des Präprozessors, wann wird er aufgerufen und von wem?
-
+	der Präprozessor wird vom Compiler aufgerufen und vereinfacht den Code, indem er Makros einsetzt und Kommentare entfernt
 Welche Präprozessor-Anweisungen kennen Sie und was ist deren Bedeutung?
 
 Wie wird die scanf()-Funktion aufgerufen (kleines Beispiel)?
 
-Worin unterscheiden sich die Funktionenfscanf,scanfundsscanf?
+Worin unterscheiden sich die Funktionen fscanf, scanf und sscanf?

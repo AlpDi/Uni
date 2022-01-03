@@ -16,13 +16,13 @@ tamagotchi pet_init(char *name){
 }
 
 void print_pet(tamagotchi pet){
-    printf("%s\n", pet.name);
-    printf("%d\n", pet.food_status);
-    printf("%d\n", pet.happy_status);
-    printf("%d\n", pet.discipline);
-    printf("%d\n", pet.stage);
-    printf("%d\n", pet.hygiene);
-    printf("%d\n", pet.health);
+    printf("name: %s\n", pet.name);
+    printf("food status: %d\n", pet.food_status);
+    printf("hapy status: %d\n", pet.happy_status);
+    printf("discipline: %d\n", pet.discipline);
+    printf("stage: %d\n", pet.stage);
+    printf("hygiene: %d\n", pet.hygiene);
+    printf("health: %d\n", pet.health);
 }
 
 void feed(tamagotchi *pet, int food){
@@ -35,4 +35,3 @@ void play(tamagotchi pet){
     //
 }
 void scold(tamagotchi pet);
-
