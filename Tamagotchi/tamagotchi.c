@@ -30,6 +30,9 @@ void feed(tamagotchi *pet, int food){
 }
 
 
-void play(tamagotchi pet);
+void play(tamagotchi pet){
+    //create tictactoe field 
+    //
+}
 void scold(tamagotchi pet);
 
