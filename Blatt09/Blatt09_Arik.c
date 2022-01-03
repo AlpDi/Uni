@@ -17,8 +17,8 @@ void print_students(student print_list[]) {
 int main(void) {
 	student students[3];
 	students[0] = (student) { "Anna", "Musterfrau", 22222, "Am Schwarzenberg-Campus 3", 4 };
-	students[1] = (student) { "Hans", "Peter", 44444, "Kasernenstraße 12", 2 };
-	students[2] = (student){ "Lisa", "Lustig", 66666, "Denickestraße 15", 8 };
+	students[1] = (student) { "Hans", "Peter", 44444, "KasernenstraÃŸe 12", 2 };
+	students[2] = (student){ "Lisa", "Lustig", 66666, "DenickestraÃŸe 15", 8 };
 
 	print_students(students);
 
