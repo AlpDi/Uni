@@ -23,9 +23,9 @@ B) Design
 tamagotchi.c:
 
 -tamagotchi pet_init(char* name);
--void print_display(Sprites sprites, tamagotchi pet);
+-void print_pet(Sprites sprites, tamagotchi pet);
 
--void load(FILE savefile, tamagotchi *pet);
+-void load(FILE savefile, tamagotchi *pet);  // nicht als return value?
 -void save(tamagotchi pet, FILE savefile);
 
 -void feed(tamagotchi *pet, int food);
@@ -37,7 +37,7 @@ tamagotchi.c:
 -void kill(tamagotchi *pet);
 -void age(tamagotchi *pet);
 */
--void updateStatus(tamagotchi *pet);
+-void update_status(tamagotchi *pet, int millis);  // iwie Zeit einbinden!
 
 -struct tamagotchi;
 ----------------------------------------------------------
