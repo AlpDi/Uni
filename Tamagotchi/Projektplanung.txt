@@ -21,18 +21,23 @@ A) Spezifikationen
 B) Design
 
 tamagotchi.c:
--void play(tamagotchi pet);
+
 -tamagotchi pet_init(char* name);
 -void print_display(Sprites sprites, tamagotchi pet);
--void load(FILE savefile);
+
+-void load(FILE savefile, tamagotchi *pet);
 -void save(tamagotchi pet, FILE savefile);
+
 -void feed(tamagotchi *pet, int food);
 -void play(tamagotchi *pet);
 -void scold(tamagotchi *pet);
 -void heal(tamagotchi *pet);
+/*
 -void checkStatus(tamagotchi *pet);
 -void kill(tamagotchi *pet);
 -void age(tamagotchi *pet);
+*/
+-void updateStatus(tamagotchi *pet);
 
 -struct tamagotchi;
 ----------------------------------------------------------
@@ -45,4 +50,5 @@ sprites.c:
 ----------------------------------------------------------
 main.c:
 -game loop
--keyboard input
+    -switch case
+    -keyboard input
