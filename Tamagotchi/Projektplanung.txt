@@ -29,6 +29,9 @@ tamagotchi.c:
 -void feed(tamagotchi *pet, int food);
 -void play(tamagotchi *pet);
 -void scold(tamagotchi *pet);
+-void heal(tamagotchi *pet);
+-void checkStatus(tamagotchi *pet);
+-void kill(tamagotchi *pet);
 -void age(tamagotchi *pet);
 
 -struct tamagotchi;
