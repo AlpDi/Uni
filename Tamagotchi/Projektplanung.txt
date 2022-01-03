@@ -12,7 +12,8 @@ A) Spezifikationen
 -Der Tamagotchi kann krank werden, wenn man ihn nicht sauber macht oder zu viele Snacks füttert
     -Tamagotchi kann nicht gefüttert werden, solange er krank ist, er kann auch an krankheit sterben
     -kann durch Medizin geheilt werden
--Der Tamagotchi durchläuft 4 Altersstufen(Ei, Baby, Teenager, Erwachsener)
+-Der Tamagotchi durchläuft 4 Altersstufen(Ei, Baby, Teenager, Erwachsener) 
+ und stirbt anschließend wenn er zu alt wird
 
 
 
@@ -21,11 +22,18 @@ B) Design
 
 tamagotchi.c:
 -void play(tamagotchi pet);
--void init_display(Sprites sprites, tamagotchi pet);
+-tamagotchi pet_init(char* name);
+-void print_display(Sprites sprites, tamagotchi pet);
+-void load();
+-void feed(tamagotchi *pet, int food);
+-void play(tamagotchi happy_status);
+-void scold(tamagotchi discipline_status);
 
 -struct tamagotchi;
 
 sprites.c:
+-Sprites sprites_init();
 
+-struct Sprites;
 
 main.c:
