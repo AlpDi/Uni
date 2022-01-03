@@ -14,8 +14,9 @@ typedef struct tamagotchi{
 tamagotchi pet_init(char* name);
 
 void feed(tamagotchi *pet, int food);
-void play(tamagotchi happy_status);
-void scold(tamagotchi discipline_status);
+void play(tamagotchi *pet, int fun);
+void scold(tamagotchi *pet, int intensity);
+void heal(tamagotchi *pet, int strength);
 
 void print_pet(tamagotchi pet);
 
