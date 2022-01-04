@@ -19,3 +19,5 @@ void scold(tamagotchi discipline_status);
 
 void print_pet(tamagotchi pet);
 
+void print_display(tamagotchi pet);
+

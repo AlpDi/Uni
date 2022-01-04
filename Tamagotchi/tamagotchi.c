@@ -35,3 +35,10 @@ void play(tamagotchi pet){
     //
 }
 void scold(tamagotchi pet);
+
+void print_display(tamagotchi pet){
+    printf("------------------------------\n");
+    for(int i = 0; i <= pet.food_status; i++){printf("O");}
+    printf("\n");
+    
+}
