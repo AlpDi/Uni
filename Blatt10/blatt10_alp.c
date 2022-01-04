@@ -40,6 +40,14 @@ void push_student(char* Vorname, char* Nachname, int Mnmr, char* Adresse, int Ku
         head = link;
 }
 
+void delete_student(int n){
+    student *ptr = head;
+    for(int i = 0; i < n; i++){
+        ptr = ptr->next;
+    }
+    
+}
+
 void print_list(){
     student *ptr = head;
 
