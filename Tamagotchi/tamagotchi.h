@@ -10,14 +10,16 @@ typedef struct tamagotchi{
 
 } tamagotchi; 
 
-
 tamagotchi pet_init(char* name);
-
-void feed(tamagotchi *pet, int food);
-void play(tamagotchi happy_status);
-void scold(tamagotchi discipline_status);
-
 void print_pet(tamagotchi pet);
 
-void print_display(tamagotchi pet);
+void load(FILE savefile, tamagotchi *pet);  // nicht lieber als return-value?
+void save(tamagotchi pet, FILE savefile);
 
+
+void feed(tamagotchi *pet, int food);
+void play(tamagotchi *pet, int fun);
+void scold(tamagotchi *pet, int intensity);
+void heal(tamagotchi *pet, int strength);
+
+void update_status(tamagotchi *pet, int millis);  // Zeit muss eingebunden werden!

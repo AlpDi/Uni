@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 tamagotchi pet_init(char *name){
     tamagotchi pet;
     pet.name = name;
@@ -25,20 +26,53 @@ void print_pet(tamagotchi pet){
     printf("health: %d\n", pet.health);
 }
 
+
+void load(FILE savefile, tamagotchi *pet){
+    // open file
+    pet->discipline = NULL;
+    pet->food_status = NULL;
+    pet->happy_status = NULL;
+    pet->health = NULL;
+    pet->hygiene = NULL;
+    pet->name = NULL;
+    pet->stage = NULL;
+}
+
+void save(tamagotchi pet, FILE savefile){
+    // save to file
+}
+
+
 void feed(tamagotchi *pet, int food){
-    pet->food_status = pet->food_status + food;
+    pet->food_status += food;
 }
 
 
-void play(tamagotchi pet){
+void play(tamagotchi *pet, int fun){
     //create tictactoe field 
-    //
+    // or snake?
+    // or pong?
 }
-void scold(tamagotchi pet);
+void scold(tamagotchi *pet, int intensity){
+    pet->discipline -= intensity;
+    // reduce fun when scolding? or remove completely?
+}
 
-void print_display(tamagotchi pet){
-    printf("------------------------------\n");
-    for(int i = 0; i <= pet.food_status; i++){printf("O");}
-    printf("\n");
-    
+void heal(tamagotchi *pet, int strength){
+    if (pet->hygiene < 1){
+        pet->hygiene += strength;
+    }
+    if (pet->health < 1){
+        pet->hygiene += strength;
+    }
+}
+
+void update_status(tamagotchi *pet, int millis){
+    int actions = NULL;  // randomize based on passed time, stronger effect over time
+    pet->food_status -= actions;  // tendency: faster decaying
+    pet->happy_status -= actions;  // tendency: decay based on health, hygiene and food status
+    pet->health -= actions;  // tendency: decay slowed down by good hygiene
+    pet->hygiene -= actions;
+    pet->stage += actions;  // tendency: decay much slower
+    // all of this needs more exact approximations
 }
