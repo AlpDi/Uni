@@ -11,5 +11,5 @@ int main(void){
     print_pet(terry);
     Sprites sprites = sprites_init();
     print_sprites(sprites);
-    print_display(terry);
+    // print_display(terry);
 }
