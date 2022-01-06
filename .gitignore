@@ -3,3 +3,5 @@ Blatt06/a.exe
 Blatt06/plot.bmp
 *.exe
 .idea
+cmake-build-debug
+CMakeLists.txt

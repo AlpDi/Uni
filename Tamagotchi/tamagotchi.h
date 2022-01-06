@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "sprites.h"
 
 typedef struct tamagotchi{
 
@@ -13,7 +14,7 @@ typedef struct tamagotchi{
 } tamagotchi; 
 
 tamagotchi pet_init(char* name);
-void print_pet(tamagotchi pet);
+void print_pet(tamagotchi pet, Sprites sprites);
 
 void load(FILE savefile, tamagotchi *pet);  // nicht lieber als return-value?
 void save(tamagotchi pet, FILE savefile);

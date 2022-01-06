@@ -1,10 +1,13 @@
+typedef char* Sprite;
+
 typedef struct Sprites{
-    char* egg;
-    char* baby;
-    char* teen;
-    char* adult;
-    char* dead; 
+    Sprite egg;
+    Sprite baby;
+    Sprite teen;
+    Sprite adult;
+    Sprite dead;
 } Sprites;
 
 Sprites sprites_init();
-Sprites print_sprites(Sprites sprites);
+void print_sprite(Sprite sprite);
+void print_sprites(Sprites sprites);

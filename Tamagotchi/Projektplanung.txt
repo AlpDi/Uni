@@ -22,8 +22,10 @@ B) Design
 
 tamagotchi.c:
 
+-struct tamagotchi;
+
 -tamagotchi pet_init(char* name);
--void print_pet(Sprites sprites, tamagotchi pet);
+-void print_pet(Sprites sprites, tamagotchi pet);  // und welches der Sprites dann?
 
 -void load(FILE savefile, tamagotchi *pet);  // nicht als return value?
 -void save(tamagotchi pet, FILE savefile);
@@ -39,14 +41,16 @@ tamagotchi.c:
 */
 -void update_status(tamagotchi *pet, int millis);  // iwie Zeit einbinden!
 
--struct tamagotchi;
 ----------------------------------------------------------
 sprites.c:
--Sprites sprites_init();
-
+-struct Sprite;
 -struct Sprites;
 
--contains the sprites for the tamagotchi 
+-Sprites sprites_init();
+-void print_sprites(Sprite sprite);
+-sprite get_sprite(char sprite_name[]);
+
+-(contains the sprites for the tamagotchi)
 ----------------------------------------------------------
 main.c:
 -game loop
