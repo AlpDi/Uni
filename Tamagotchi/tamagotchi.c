@@ -24,6 +24,7 @@ void print_pet(tamagotchi pet, Sprites sprites){
     printf("stage: %d\n", pet.stage);
     printf("hygiene: %d\n", pet.hygiene);
     printf("health: %d\n", pet.health);
+    // print sprite somewhere here?
 }
 
 void load(FILE savefile, tamagotchi *pet){

@@ -1,5 +1,5 @@
-#include "tamagotchi.h"
 #include "sprites.h"
+#include "tamagotchi.h"
 #include <stdio.h>
 
 Sprites sprites_init(){
@@ -55,8 +55,4 @@ Sprites sprites_init(){
 
 void print_sprites(Sprites sprites){
     printf("%s\n\n%s\n\n%s\n\n%s\n\n%s\n\n", sprites.egg, sprites.baby,sprites.teen, sprites.adult, sprites.dead);
-}
-
-void print_sprite(Sprite sprite){
-    printf("%s\n\n", sprite);
 }
