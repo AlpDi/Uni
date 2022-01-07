@@ -16,7 +16,7 @@ tamagotchi pet_init(char *name){
     return pet;
 }
 
-void print_pet(tamagotchi pet, Sprites sprites){
+void print_pet(tamagotchi pet){
     printf("name: %s\n", pet.name);
     printf("food status: %d\n", pet.food_status);
     printf("happy status: %d\n", pet.happy_status);
