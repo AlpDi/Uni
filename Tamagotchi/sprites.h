@@ -6,5 +6,5 @@ typedef struct Sprites{
     char* dead;
 } Sprites;
 
-Sprites sprites_init(void);
+Sprites sprites_init();
 Sprites print_sprites(Sprites sprites);
