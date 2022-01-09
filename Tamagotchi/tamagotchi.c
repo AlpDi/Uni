@@ -1,6 +1,6 @@
 #include "tamagotchi.h"
 #include <stdio.h>
-#include <stdlib.h>
+// #include <stdlib.h>
 
 
 tamagotchi pet_init(char *name){
@@ -59,12 +59,10 @@ void scold(tamagotchi *pet, int intensity){
 }
 
 void heal(tamagotchi *pet, int strength){
-    if (pet->hygiene < 1){
-        pet->hygiene += strength;
-    }
-    if (pet->health < 1){
-        pet->hygiene += strength;
-    }
+    pet->hygiene += strength;
+    pet->hygiene += strength;
+    if (pet->hygiene > 10){ pet->hygiene = 10; }
+    if (pet->health > 10){ pet->health = 10; }
 }
 
 void update_status(tamagotchi *pet, int millis){

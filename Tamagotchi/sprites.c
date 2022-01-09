@@ -1,7 +1,7 @@
 #include "tamagotchi.h"
 #include "sprites.h"
 #include <stdio.h>
-#include <stdlib.h>
+// #include <stdlib.h>
 
 Sprites sprites_init(){
     Sprites sprites;
