@@ -7,4 +7,4 @@ typedef struct Sprites{
 } Sprites;
 
 Sprites sprites_init(void);
-void print_sprites(Sprites sprites);
+Sprites print_sprites(Sprites sprites);

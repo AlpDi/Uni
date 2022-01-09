@@ -53,6 +53,7 @@ Sprites sprites_init(){
     return sprites;
 }
 
-void print_sprites(Sprites sprites){
+Sprites print_sprites(Sprites sprites){
     printf("%s\n\n%s\n\n%s\n\n%s\n\n%s\n\n", sprites.egg, sprites.baby,sprites.teen, sprites.adult, sprites.dead);
+    return sprites;
 }
