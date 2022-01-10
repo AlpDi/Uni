@@ -49,15 +49,16 @@ int main(void){
                 heal(&terry, 1);
                 break;
             case 'q': 
-                printf("\n\n möchtest du vorher Speichern? [Y/N] \n");
+                printf("\n\n Do you want to save? [Y/N] \n");
                 char input;
                 scanf(" %c", &input);
                 if(input == 'y'){
                     save(terry, "save");
+                    return 0;
                 }
                 else{
                     return 0;
                 }
-        }
+        } 
     }
 }
