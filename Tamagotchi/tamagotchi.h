@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+// #include "sprites.h"
 
 typedef struct tamagotchi{
 

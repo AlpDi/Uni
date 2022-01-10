@@ -14,7 +14,6 @@ typedef struct student{
 } student;
 
 student *head = NULL;
-student *current = NULL;
 student *last = NULL;
 
 bool isEmpty(){
@@ -60,14 +59,15 @@ void print_list(){
         printf("\n%s, %s, %d, %s, %d\n",ptr->Vorname, ptr->Nachname, ptr->Mnmr, ptr->Adresse, ptr->Kurse);
         ptr = ptr->next;
     } 
+    printf("\n-------------------------\n");
 }
 
 void reverse_list(){
     student *current = head;
     student *temp;
+    head->prev = NULL;
 
-    while(current != NULL)
-    {
+    while(current != NULL){
 
         temp = current->next;
         current->next = current->prev;
@@ -90,8 +90,10 @@ int main(){
     push_student("Peter", "Schaf",     12345,  "Bakerstreet 221b",         9);
 
     print_list();
-    delete_student(3);
-    reverse_list();
-    printf("-Reverse list and delete element 3-");
+    delete_student(3); 
+    printf("- delete element 3 -");
     print_list();
+    reverse_list();
+    printf("- Reverse list -");
+    print_list(); 
 }
