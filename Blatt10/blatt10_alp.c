@@ -37,6 +37,7 @@ void push_student(char* Vorname, char* Nachname, int Mnmr, char* Adresse, int Ku
     }
         
         head = link;
+        head->prev = NULL;
 }
 
 student delete_student(int n){
@@ -65,7 +66,6 @@ void print_list(){
 void reverse_list(){
     student *current = head;
     student *temp;
-    head->prev = NULL;
 
     while(current != NULL){
 
