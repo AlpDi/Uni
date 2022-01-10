@@ -1,6 +1,6 @@
 #include "tamagotchi.h"
 #include "sprites.h"
-// #include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 
