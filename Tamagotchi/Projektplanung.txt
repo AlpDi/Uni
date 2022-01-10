@@ -25,7 +25,7 @@ tamagotchi.c:
 -struct tamagotchi;
 
 -tamagotchi pet_init(char* name);
--void print_pet(Sprites sprites, tamagotchi pet);  // und welches der Sprites dann?
+-void print_pet(Sprites sprites, tamagotchi pet);  // und welches der Sprites dann? A: Ist abhängig vom alter, sprites gibt alle sprites mit.
 
 -void load(FILE savefile, tamagotchi *pet);  // nicht als return value?
 -void save(tamagotchi pet, FILE savefile);
