@@ -15,7 +15,7 @@ tamagotchi pet_init(char *name){
 
     return pet;
 }
-
+/*
 void print_pet(tamagotchi pet, Sprites sprites){
     printf("name: %s\n", pet.name);
     printf("food status: %d\n", pet.food_status);
@@ -25,7 +25,7 @@ void print_pet(tamagotchi pet, Sprites sprites){
     printf("hygiene: %d\n", pet.hygiene);
     printf("health: %d\n", pet.health);
 }
-
+*/
 void load(FILE savefile, tamagotchi *pet){
     // open file
     pet->discipline = 0;
