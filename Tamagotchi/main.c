@@ -8,10 +8,26 @@ int main(void){
     int chocolate_bar = 2;
 
     tamagotchi terry = pet_init("terry");
+    
     feed(&terry, chocolate_bar);
     //print_pet(terry);
     Sprites sprites = sprites_init();
     //print_sprites(sprites);
+
+    printf("N: New game\nL: Load save file\nQ: Quit\n");
+    char input_menu;
+    scanf(" %c", &input_menu);
+    switch(input_menu){
+        case 'n':
+            terry = pet_init("terry");
+            system("clear");
+            break;
+        case 'l':
+        //Load
+        case 'q':
+            return 0;
+    }
+
 
     int loop = 1;
 
@@ -52,7 +68,7 @@ int main(void){
                 break;
             case 'q': 
                 system("clear");
-                printf("\n\n Do you want to save? [Y/N] \n");
+                printf("\n Do you want to save? [Y/N] \n");
                 char input;
                 scanf(" %c", &input);
                 if(input == 'y'){
