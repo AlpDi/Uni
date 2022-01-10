@@ -57,9 +57,11 @@ int main(void){
                 scanf(" %c", &input);
                 if(input == 'y'){
                     save(terry, "save");
+                    system("clear");
                     return 0;
                 }
                 else{
+                    system("clear");
                     return 0;
                 }
         } 
