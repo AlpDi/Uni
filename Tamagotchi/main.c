@@ -16,7 +16,7 @@ int main(void){
 
     while (loop){
         char* act_sprite = "No Sprite loaded yet";
-        char input;
+        char user_response;
         if(terry.stage == 0){
             act_sprite = sprites.baby;
         }
@@ -33,8 +33,9 @@ int main(void){
         printf("\n\n%s\n\n", act_sprite);
         printf("---------------\n");
         printf("A: feed  S: play  D: scold F: heal\n");
-        scanf("%c", &input);
-        switch(input){
+        //TODO case insensitive machen
+        scanf(" %c", &user_response);
+        switch(user_response){
             case 'a':
                 feed(&terry, chocolate_bar);
                 break;
@@ -48,7 +49,15 @@ int main(void){
                 heal(&terry, 1);
                 break;
             case 'q': 
-                return 0;
+                printf("\n\n möchtest du vorher Speichern? [Y/N] \n");
+                char input;
+                scanf(" %c", &input);
+                if(input == 'y'){
+                    save(terry, "save");
+                }
+                else{
+                    return 0;
+                }
         }
     }
 }
