@@ -1,7 +1,9 @@
 #include "tamagotchi.h"
 #include <stdio.h>
+#include <time.h>
 #include <unistd.h>
-
+#include <stdlib.h>
+#include <string.h>
 
 tamagotchi pet_init(char *name){
     tamagotchi pet;
@@ -37,22 +39,55 @@ void print_pet(tamagotchi pet){
     // print sprite somewhere here?
 }
 
-void load(char *savefile, tamagotchi *pet){
-    // open file
-    pet->discipline = 0;
-    pet->food_status = 0;
-    pet->happy_status = 0;
-    pet->health = 0;
-    pet->hygiene = 0;
-    pet->name = 0;
-    pet->stage = 0;
-    // TODO read from file instead of setting to 0
-}
-
-void save(tamagotchi pet, char *savefile) {
+int load(char *savefile, tamagotchi *pet){
     char filename[256] = "";
     sprintf(filename, "%s.tamagotchi", savefile);
-    printf("\nContent:\n%s\n", filename);
+    FILE *file;
+    file = fopen(filename, "r");
+    printf("Opening file %s ...\n", filename);
+
+    if (file == NULL){
+        printf("There is no valid save with the name %s, loading was aborted.\n", savefile);
+        return 1;
+    }
+
+    int i = 0;
+    char data_line[256];
+
+    long int seconds_offline;
+
+    while (fgets(data_line, 256, file)){
+        printf("%s\n", data_line);
+        if (strcmp(data_line, "[NAME]") != 0){
+            pet->name = fgets(data_line, 256, file);
+            printf("pet->name: %s\ndata_line: %s", pet->name, data_line);
+        } else if (strcmp(data_line, "[FOOD_STATUS]") != 0){
+            pet->food_status = strtol(fgets(data_line, 256, file), NULL, 10);
+        } else if (strcmp(data_line, "[HAPPY_STATUS]") != 0){
+            pet->happy_status = atoi(fgets(data_line, 256, file));
+        } else if (strcmp(data_line, "[DISCIPLINE]") != 0){
+            pet->discipline = atoi(fgets(data_line, 256, file));
+        } else if (strcmp(data_line, "[STAGE]") != 0){
+            pet->stage = atoi(fgets(data_line, 256, file));
+        } else if (strcmp(data_line, "[HYGIENE]") != 0){
+            pet->hygiene = atoi(fgets(data_line, 256, file));
+        } else if (strcmp(data_line, "[HEALTH]") != 0){
+            pet->health = atoi(fgets(data_line, 256, file));
+        } else if (strcmp(data_line, "[SECONDS]") != 0){
+            seconds_offline = strtol(fgets(data_line, 256, file), NULL, 10);
+        }
+        printf("%s\n", data_line);
+        print_pet(*pet);
+    }
+
+    printf("You were away for %d seconds!\n", seconds_offline);
+
+    return 0;
+}
+
+int save(tamagotchi pet, char *savefile) {
+    char filename[256] = "";
+    sprintf(filename, "%s.tamagotchi", savefile);
 
     if (file_exists(filename)) {
         char user_response[255] = "";
@@ -63,7 +98,7 @@ void save(tamagotchi pet, char *savefile) {
             printf("\nOverwriting %s ...\n", filename);
         } else {
             printf("\nSave game was aborted. No save was created.\n");
-            return;
+            return 1;
         }
     } else {
         printf("\nWriting %s ...\n", filename);
@@ -71,12 +106,14 @@ void save(tamagotchi pet, char *savefile) {
     FILE *file;
     file = fopen(filename, "w");
 
+
     char save_data[512];
-    sprintf(save_data, "[NAME]\n%s\n[FOOD_STATUS]\n%d\n[HAPPY_STATUS]\n%d\n[DISCIPLINE]\n%d\n[STAGE]\n%d\n[HYGIENE]\n%d\n[HEALTH]\n%d\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health);
-    // printf("\nContent:\n%s\n", save_data);
+    time_t seconds = time(NULL);
+    sprintf(save_data, "[NAME]\n%s\n[FOOD_STATUS]\n%d\n[HAPPY_STATUS]\n%d\n[DISCIPLINE]\n%d\n[STAGE]\n%d\n[HYGIENE]\n%d\n[HEALTH]\n%d\n[SECONDS]\n%ld\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds);
 
     fputs(save_data, (FILE *) file);
     fclose((FILE *) file);
+    return 0;
 }
 
 
