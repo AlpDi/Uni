@@ -91,7 +91,7 @@ void play(tamagotchi *pet, int fun){
     // or pong?
 }
 void scold(tamagotchi *pet, int intensity){
-    pet->discipline -= intensity;
+    pet->discipline += intensity;
     // reduce fun when scolding? or remove completely?
 }
 
