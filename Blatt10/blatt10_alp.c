@@ -60,7 +60,7 @@ void print_list(){
         printf("\n%s, %s, %d, %s, %d\n",ptr->Vorname, ptr->Nachname, ptr->Mnmr, ptr->Adresse, ptr->Kurse);
         ptr = ptr->next;
     } 
-    printf("\n-------------------------\n");
+    printf("\n------------------------\n");
 }
 
 void reverse_list(){
@@ -91,9 +91,9 @@ int main(){
 
     print_list();
     delete_student(3); 
-    printf("- delete element 3 -");
+    printf("- delete element 3 -\n------------------------\n");
     print_list();
     reverse_list();
-    printf("- Reverse list -");
+    printf("- Reverse list -\n------------------------\n");
     print_list(); 
 }
