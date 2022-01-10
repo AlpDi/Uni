@@ -1,6 +1,6 @@
 #include "tamagotchi.h"
 #include <stdio.h>
-// #include <stdlib.h>
+#include <unistd.h>
 
 
 tamagotchi pet_init(char *name){
@@ -16,6 +16,16 @@ tamagotchi pet_init(char *name){
     return pet;
 }
 
+int file_exists(char *filename){
+    FILE *file = fopen(filename, "r");
+    int exists = 0;
+    if (file != NULL){
+        exists = 1;
+        fclose(file);
+    }
+    return exists;
+}
+
 void print_pet(tamagotchi pet){
     printf("name: %s\n", pet.name);
     printf("food status: %d\n", pet.food_status);
@@ -27,7 +37,7 @@ void print_pet(tamagotchi pet){
     // print sprite somewhere here?
 }
 
-void load(FILE savefile, tamagotchi *pet){
+void load(char *savefile, tamagotchi *pet){
     // open file
     pet->discipline = 0;
     pet->food_status = 0;
@@ -39,8 +49,34 @@ void load(FILE savefile, tamagotchi *pet){
     // TODO read from file instead of setting to 0
 }
 
-void save(tamagotchi pet, FILE savefile){
-    // save to file
+void save(tamagotchi pet, char *savefile) {
+    char filename[256] = "";
+    sprintf(filename, "%s.tamagotchi", savefile);
+    printf("\nContent:\n%s\n", filename);
+
+    if (file_exists(filename)) {
+        char user_response[255] = "";
+        printf("File %s exists! Overwrite saved game? [y/N]");
+        scanf("%s", &user_response);
+        printf("\n");
+        if (user_response[0] == 'y' || user_response[0] == 'Y') {
+            printf("\nOverwriting %s ...\n", filename);
+        } else {
+            printf("\nSave game was aborted. No save was created.\n");
+            return;
+        }
+    } else {
+        printf("\nWriting %s ...\n", filename);
+    }
+    FILE *file;
+    file = fopen(filename, "w");
+
+    char save_data[512];
+    sprintf(save_data, "[NAME]\n%s\n[FOOD_STATUS]\n%d\n[HAPPY_STATUS]\n%d\n[DISCIPLINE]\n%d\n[STAGE]\n%d\n[HYGIENE]\n%d\n[HEALTH]\n%d\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health);
+    // printf("\nContent:\n%s\n", save_data);
+
+    fputs(save_data, (FILE *) file);
+    fclose((FILE *) file);
 }
 
 
