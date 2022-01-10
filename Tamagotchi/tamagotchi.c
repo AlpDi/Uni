@@ -1,6 +1,6 @@
 #include "tamagotchi.h"
 #include <stdio.h>
-#include <stdlib.h>
+// #include <stdlib.h>
 
 
 tamagotchi pet_init(char *name){
@@ -15,8 +15,8 @@ tamagotchi pet_init(char *name){
 
     return pet;
 }
-/*
-void print_pet(tamagotchi pet, Sprites sprites){
+
+void print_pet(tamagotchi pet){
     printf("name: %s\n", pet.name);
     printf("food status: %d\n", pet.food_status);
     printf("happy status: %d\n", pet.happy_status);
@@ -24,8 +24,9 @@ void print_pet(tamagotchi pet, Sprites sprites){
     printf("stage: %d\n", pet.stage);
     printf("hygiene: %d\n", pet.hygiene);
     printf("health: %d\n", pet.health);
+    // print sprite somewhere here?
 }
-*/
+
 void load(FILE savefile, tamagotchi *pet){
     // open file
     pet->discipline = 0;

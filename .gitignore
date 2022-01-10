@@ -5,3 +5,4 @@ Blatt06/plot.bmp
 .idea
 cmake-build-debug
 CMakeLists.txt
+*.o
