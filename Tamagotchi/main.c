@@ -71,11 +71,11 @@ int main(void){
     Sprites sprites = sprites_init();
     //print_sprites(sprites);
 
-    int input_menu = 0;
-    while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q') {
+    int input_menu;
+    do {
         printf("N: New game\nL: Load save file\nQ: Quit\n");
-        input_menu = getchar() | 32;
-    }
+        input_menu = getchar() | 32; while (input_menu != ('\n'|32) && getchar() != '\n'){}
+    } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
     switch (input_menu) {
         case 'n':
             terry = pet_init("terry");
@@ -128,9 +128,11 @@ int main(void){
 
         printf("\n\n%s\n\n", act_sprite);
         printf("---------------\n");
-        printf("A: feed  S: play  D: scold F: heal\n");
-        scanf(" %c", &user_response);
-        user_response = user_response | 32;
+        do {
+            printf("A: feed  S: play  D: scold F: heal\n");
+            user_response = getchar(); while (user_response != '\n' && getchar() != '\n'){}
+            user_response = user_response | 32;
+        } while (user_response != 'a' && user_response != 's' && user_response != 'd' && user_response != 'f' && user_response != 'q');
         switch(user_response){
             case 'a':
                 feed(&terry, chocolate_bar);
@@ -147,12 +149,14 @@ int main(void){
                 break;
             case 'q': 
                 clear_terminal();
-                int input = 0;
-                while (input != 'y' && input != 'n'){
-                    printf("\n Do you want to save? [Y/N] \n");
-                    input = getchar() | 32;
+                int input;
+                do {
+                        printf("\n Do you want to save? [Y/n] \n");
+                        input = getchar(); while (input != '\n' && getchar() != '\n'){}
+                        input |= 32;
                 }
-                if(input == 'y') {
+                while (input != 'y' && input != 'n' && input != ('\n'|32));
+                if(input != 'n') {
                     save(terry, "save");
                     clear_terminal();
                     return 0;
