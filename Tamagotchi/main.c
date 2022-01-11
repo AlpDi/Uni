@@ -80,28 +80,33 @@ int main(void){
         } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
         switch (input_menu) {
             case 'n':
-                printf("Please name your Tamagotchi! ");
-                int name_buffer[255]; int j = 0;
+                // new tamagotchi
+                printf("How do you want to name your tamagotchi?\n");
+                char name_buffer[255];
+                int j = 0;
                 do {
-                    name_buffer[j] = getchar();
-                    if (j == 0) {
-                        name_buffer[j] &= -33;
-                    }
+                    name_buffer[j] = (char) getchar();
                     if (name_buffer[j] != '\n') {
-                        name_buffer[j] |= 32;
+                        if (j == 0) {
+                            name_buffer[j] &= -33;
+                        } else {
+                            name_buffer[j] |= 32;
+                        }
                     } else {
+                        name_buffer[j] = '\0';
                         if (j == 0) {
                             failure = 1;
                         } else {
                             failure = 0;
                         }
-                        name_buffer[j] = '\0';
                     }
                     j++;
                 } while (failure < 0);
+
+
                 printf("Debug-Buffer:\t%s\n", (char *) name_buffer);
                 if (!failure){
-                    printf("Your Tamagotchi will be named \'%s\'.\nIs this your whish? [Y|n]\n", (char *) name_buffer);
+                    printf("Your Tamagotchi will be named \'%s\'.\nIs this your wish? [Y|n]\n", (char *) name_buffer);
                     int response;
                     do {
                         response = getchar() | 32;
@@ -113,13 +118,13 @@ int main(void){
                         clear_terminal();
                         break;
                     }
-                } else { printf("Error during naming process!\n"); break; }
+                } else { printf("That name did\'nt work...\n"); break; }
 
-                printf("initializing pet\n");
                 terry = pet_init((char *)name_buffer);
                 clear_terminal();
                 break;
             case 'l':
+                // load tamagotchi
                 printf("Loading from save file...\n");
                 terry = pet_init("");
                 failure = load("save", &terry);
