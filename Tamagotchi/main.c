@@ -148,11 +148,11 @@ int main(void){
             case 'q': 
                 clear_terminal();
                 int input = 0;
-                while (input != 'y' && input != 'n' && input != 10){
-                    printf("\n Do you want to save? [Y/n] \n");
+                while (input != 'y' && input != 'n'){
+                    printf("\n Do you want to save? [Y/N] \n");
                     input = getchar() | 32;
                 }
-                if(input == 'y' || input == 10) {
+                if(input == 'y') {
                     save(terry, "save");
                     clear_terminal();
                     return 0;
