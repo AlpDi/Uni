@@ -100,8 +100,25 @@ int main(void){
         clear_terminal();
         char* act_sprite = "No Sprite loaded yet";
         char user_response;
-        if(terry.stage == 0){
-            act_sprite = sprites.baby;
+
+        switch (terry.stage) {
+            case 0:
+                act_sprite = sprites.egg;
+                break;
+            case 1:
+                act_sprite = sprites.baby;
+                break;
+            case 2:
+                act_sprite = sprites.teen;
+                break;
+            case 3:
+                act_sprite = sprites.adult;
+                break;
+            case 4:
+                act_sprite = sprites.dead;
+                break;
+            default:
+                break;
         }
         printf("---------------\n");
         //TODO in Funktion auslagern
