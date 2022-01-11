@@ -84,6 +84,7 @@ int main(void){
             printf("Loading from save file...\n");
             terry = pet_init("");
             load("save", &terry);
+            break;
         case 'q':
             return 0;
     }
