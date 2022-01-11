@@ -80,7 +80,43 @@ int main(void){
         } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
         switch (input_menu) {
             case 'n':
-                terry = pet_init("terry");
+                printf("Please name your Tamagotchi! ");
+                int name_buffer[255]; int j = 0;
+                do {
+                    name_buffer[j] = getchar();
+                    if (j == 0) {
+                        name_buffer[j] &= -33;
+                    }
+                    if (name_buffer[j] != '\n') {
+                        name_buffer[j] |= 32;
+                    } else {
+                        if (j == 0) {
+                            failure = 1;
+                        } else {
+                            failure = 0;
+                        }
+                        name_buffer[j] = '\0';
+                    }
+                    j++;
+                } while (failure < 0);
+                printf("Debug-Buffer:\t%s\n", (char *) name_buffer);
+                if (!failure){
+                    printf("Your Tamagotchi will be named \'%s\'.\nIs this your whish? [Y|n]\n", (char *) name_buffer);
+                    int response;
+                    do {
+                        response = getchar() | 32;
+                        while (response != ('\n' | 32) && getchar() != '\n'){}
+                    } while (response != 'y' && response != 'n' && response != ('\n' | 32));
+                    if (response == 'n') {
+                        printf("Name was not accepted.\n");
+                        failure = -1;
+                        clear_terminal();
+                        break;
+                    }
+                } else { printf("Error during naming process!\n"); break; }
+
+                printf("initializing pet\n");
+                terry = pet_init((char *)name_buffer);
                 clear_terminal();
                 break;
             case 'l':
