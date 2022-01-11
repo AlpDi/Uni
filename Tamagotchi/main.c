@@ -117,6 +117,7 @@ int main(void){
         switch(user_response){
             case 'a':
                 feed(&terry, chocolate_bar);
+                // TODO food menu
                 break;
             case 's':
                 play(&terry, 3);
@@ -130,6 +131,7 @@ int main(void){
             case 'q': 
                 clear_terminal();
                 printf("\n Do you want to save? [Y/N] \n");
+                // TODO Eingaben abweichend von 'y'|'Y'|'n'|'N' abfangen und in Schleife wiederholen
                 char input;
                 scanf(" %c", &input);
                 input = input | 32;
