@@ -95,7 +95,7 @@ int main(void){
     while (loop){
         clear_terminal();
         char* act_sprite = "No Sprite loaded yet";
-        char user_response;
+        int user_response;
 
         switch (terry.stage) {
             case 0:
@@ -164,9 +164,6 @@ int main(void){
                     clear_terminal();
                     return 0;
                 }
-            default:
-                printf("Unknown command for %c!\n", input_menu);
-                break;
         }
     }
 }
