@@ -52,7 +52,11 @@ const char *get_platform_name() {
     return (PLATFORM_NAME == NULL) ? "None/Unknown" : PLATFORM_NAME;
 }
 
-
+void clear_terminal(){
+    if (PLATFORM_NAME == "windows"){ system("cls"); }
+    else if (PLATFORM_NAME == "linux"){ system("clear"); }
+    else { printf("System %s was not expected.\nCant clear screen!\n\n"); }
+}
 
 int main(void){
     int chocolate_bar = 2;
@@ -73,7 +77,7 @@ int main(void){
     switch(input_menu){
         case 'n':
             terry = pet_init("terry");
-            system("clear");
+            clear_terminal();
             break;
         case 'l':
             printf("Loading from save file...\n");
@@ -87,7 +91,7 @@ int main(void){
     int loop = 1;
 
     while (loop){
-        system("clear");
+        clear_terminal();
         char* act_sprite = "No Sprite loaded yet";
         char user_response;
         if(terry.stage == 0){
@@ -122,18 +126,18 @@ int main(void){
                 heal(&terry, 1);
                 break;
             case 'q': 
-                system("clear");
+                clear_terminal();
                 printf("\n Do you want to save? [Y/N] \n");
                 char input;
                 scanf(" %c", &input);
                 input = input | 32;
                 if(input == 'y'){
                     save(terry, "save");
-                    system("clear");
+                    clear_terminal();
                     return 0;
                 }
                 else{
-                    system("clear");
+                    clear_terminal();
                     return 0;
                 }
         } 
