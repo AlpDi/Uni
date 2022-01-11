@@ -64,9 +64,9 @@ int main(void){
 
     printf("Running on system %s\n", get_platform_name());
 
-    tamagotchi terry = pet_init("terry");
+    tamagotchi terry;  // = pet_init("terry");
     
-    feed(&terry, chocolate_bar);
+    //feed(&terry, chocolate_bar);
     //print_pet(terry);
     Sprites sprites = sprites_init();
     //print_sprites(sprites);
