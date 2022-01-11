@@ -80,7 +80,7 @@ int load(char *savefile, tamagotchi *pet){
         print_pet(*pet);
     }
 
-    printf("You were away for %d seconds!\n", seconds_offline);
+    printf("You were away for %ld seconds!\n", seconds_offline);
 
     return 0;
 }
@@ -91,7 +91,7 @@ int save(tamagotchi pet, char *savefile) {
 
     if (file_exists(filename)) {
         char user_response;
-        printf("File %s exists! Overwrite saved game? [y/N]");
+        printf("File %s exists! Overwrite saved game? [y/N]", filename);
         scanf("%s", &user_response);
         user_response = user_response | 32;
         if (user_response == 'y' || user_response == 'Y') {
@@ -109,7 +109,7 @@ int save(tamagotchi pet, char *savefile) {
 
     char save_data[512];
     time_t seconds = time(NULL);
-    sprintf(save_data, "[NAME]\n%s\n[FOOD_STATUS]\n%d\n[HAPPY_STATUS]\n%d\n[DISCIPLINE]\n%d\n[STAGE]\n%d\n[HYGIENE]\n%d\n[HEALTH]\n%d\n[SECONDS]\n%ld\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds);
+    sprintf(save_data, "[NAME]\n%s\n[FOOD_STATUS]\n%d\n[HAPPY_STATUS]\n%d\n[DISCIPLINE]\n%d\n[STAGE]\n%d\n[HYGIENE]\n%d\n[HEALTH]\n%d\n[SECONDS]\n%lld\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds);
 
     fputs(save_data, (FILE *) file);
     fclose((FILE *) file);
