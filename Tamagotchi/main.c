@@ -19,11 +19,10 @@ int main(void){
     scanf(" %c", &input_menu);
     switch(input_menu){
         case 'n':
-            terry = pet_init("terry");
-            system("clear");
             break;
         case 'l':
-        //Load
+            load("save", &terry);
+            break;
         case 'q':
             return 0;
     }
