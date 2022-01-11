@@ -71,27 +71,23 @@ int main(void){
     Sprites sprites = sprites_init();
     //print_sprites(sprites);
 
-    char input_menu = 0;
+    int input_menu = 0;
     while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q') {
         printf("N: New game\nL: Load save file\nQ: Quit\n");
-        scanf(" %c", &input_menu);
-        input_menu = input_menu | 32;
-        switch (input_menu) {
-            case 'n':
-                terry = pet_init("terry");
-                clear_terminal();
-                break;
-            case 'l':
-                printf("Loading from save file...\n");
-                terry = pet_init("");
-                load("save", &terry);
-                break;
-            case 'q':
-                return 0;
-            default:
-                printf("Unknown command for %c!\n", input_menu);
-                break;
-        }
+        input_menu = getchar() | 32;
+    }
+    switch (input_menu) {
+        case 'n':
+            terry = pet_init("terry");
+            clear_terminal();
+            break;
+        case 'l':
+            printf("Loading from save file...\n");
+            terry = pet_init("");
+            load("save", &terry);
+            break;
+        case 'q':
+            return 0;
     }
 
     int loop = 1;
@@ -151,13 +147,12 @@ int main(void){
                 break;
             case 'q': 
                 clear_terminal();
-                char input = 0;
-                while (input != 'y' && input != 'n'){
-                    printf("\n Do you want to save? [Y/N] \n");
-                    scanf(" %c", &input);
-                    input = input | 32;
+                int input = 0;
+                while (input != 'y' && input != 'n' && input != 10){
+                    printf("\n Do you want to save? [Y/n] \n");
+                    input = getchar() | 32;
                 }
-                if(input == 'y') {
+                if(input == 'y' || input == 10) {
                     save(terry, "save");
                     clear_terminal();
                     return 0;

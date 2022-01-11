@@ -88,14 +88,13 @@ int save(tamagotchi pet, char *savefile) {
     sprintf(filename, "%s.tamagotchi", savefile);
 
     if (file_exists(filename)) {
-        char user_response = 0;
+        int user_response = 0;
         printf("File %s exists! ", filename);
-        while (user_response != 'y' && user_response != 'n') {
-            printf("Overwrite saved game? [y/N]\n");
-            scanf("%s", &user_response);
-            user_response = user_response | 32;
+        while (user_response != 'y' && user_response != 'n' && user_response != 10) {
+            printf("Overwrite saved game? [Y/n]\n");
+            user_response = getchar() | 32;
         }
-        if (user_response == 'y') {
+        if (user_response == 'y' || user_response == 10) {
             printf("\nOverwriting %s ...\n", filename);
         } else {
             printf("\nSave game was aborted. No save was created.\n");
