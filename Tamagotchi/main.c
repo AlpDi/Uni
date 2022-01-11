@@ -2,6 +2,7 @@
 #include "sprites.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 
 
@@ -53,9 +54,9 @@ const char *get_platform_name() {
 }
 
 void clear_terminal(){
-    if (PLATFORM_NAME == "windows"){ system("cls"); }
-    else if (PLATFORM_NAME == "linux"){ system("clear"); }
-    else { printf("System %s was not expected.\nCant clear screen!\n\n"); }
+    if (strcmp(PLATFORM_NAME, "windows") == 0){ system("cls"); }
+    else if (strcmp(PLATFORM_NAME, "linux") == 0){ system("clear"); }
+    else { printf("System %s was not expected.\nCant clear screen!\n\n", PLATFORM_NAME); }
 }
 
 int main(void){
