@@ -71,24 +71,28 @@ int main(void){
     Sprites sprites = sprites_init();
     //print_sprites(sprites);
 
-    printf("N: New game\nL: Load save file\nQ: Quit\n");
-    char input_menu;
-    scanf(" %c", &input_menu);
-    input_menu = input_menu | 32;
-    switch(input_menu){
-        case 'n':
-            terry = pet_init("terry");
-            clear_terminal();
-            break;
-        case 'l':
-            printf("Loading from save file...\n");
-            terry = pet_init("");
-            load("save", &terry);
-            break;
-        case 'q':
-            return 0;
+    char input_menu = 0;
+    while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q') {
+        printf("N: New game\nL: Load save file\nQ: Quit\n");
+        scanf(" %c", &input_menu);
+        input_menu = input_menu | 32;
+        switch (input_menu) {
+            case 'n':
+                terry = pet_init("terry");
+                clear_terminal();
+                break;
+            case 'l':
+                printf("Loading from save file...\n");
+                terry = pet_init("");
+                load("save", &terry);
+                break;
+            case 'q':
+                return 0;
+            default:
+                printf("Unknown command for %c!\n", input_menu);
+                break;
+        }
     }
-
 
     int loop = 1;
 
@@ -130,20 +134,23 @@ int main(void){
                 break;
             case 'q': 
                 clear_terminal();
-                printf("\n Do you want to save? [Y/N] \n");
-                // TODO Eingaben abweichend von 'y'|'Y'|'n'|'N' abfangen und in Schleife wiederholen
-                char input;
-                scanf(" %c", &input);
-                input = input | 32;
-                if(input == 'y'){
+                char input = 0;
+                while (input != 'y' && input != 'n'){
+                    printf("\n Do you want to save? [Y/N] \n");
+                    scanf(" %c", &input);
+                    input = input | 32;
+                }
+                if(input == 'y') {
                     save(terry, "save");
                     clear_terminal();
                     return 0;
-                }
-                else{
+                } else {
                     clear_terminal();
                     return 0;
                 }
-        } 
+            default:
+                printf("Unknown command for %c!\n", input_menu);
+                break;
+        }
     }
 }
