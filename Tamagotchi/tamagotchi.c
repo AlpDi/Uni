@@ -28,6 +28,12 @@ int file_exists(char *filename){
     return exists;
 }
 
+int begins_with(char *long_string, char *short_searchstring){
+    int i = 0;
+    while (short_searchstring[i] && long_string[i] == short_searchstring[i]){ i++; }
+    return (short_searchstring[i]) ? 0 : 1;
+}
+
 void print_pet(tamagotchi pet){
     printf("name: %s\n", pet.name);
     printf("food status: %d\n", pet.food_status);
@@ -51,36 +57,28 @@ int load(char *savefile, tamagotchi *pet){
         return 1;
     }
 
-    int i = 0;
-    char data_line[256];
 
-    long int seconds_offline;
+    long long int savetime;
+
+    char data_line[256] = "";
 
     while (fgets(data_line, 256, file)){
-        printf("%s\n", data_line);
-        if (strcmp(data_line, "[NAME]") != 0){
-            pet->name = fgets(data_line, 256, file);
-            printf("pet->name: %s\ndata_line: %s", pet->name, data_line);
-        } else if (strcmp(data_line, "[FOOD_STATUS]") != 0){
-            pet->food_status = strtol(fgets(data_line, 256, file), NULL, 10);
-        } else if (strcmp(data_line, "[HAPPY_STATUS]") != 0){
-            pet->happy_status = atoi(fgets(data_line, 256, file));
-        } else if (strcmp(data_line, "[DISCIPLINE]") != 0){
-            pet->discipline = atoi(fgets(data_line, 256, file));
-        } else if (strcmp(data_line, "[STAGE]") != 0){
-            pet->stage = atoi(fgets(data_line, 256, file));
-        } else if (strcmp(data_line, "[HYGIENE]") != 0){
-            pet->hygiene = atoi(fgets(data_line, 256, file));
-        } else if (strcmp(data_line, "[HEALTH]") != 0){
-            pet->health = atoi(fgets(data_line, 256, file));
-        } else if (strcmp(data_line, "[SECONDS]") != 0){
-            seconds_offline = strtol(fgets(data_line, 256, file), NULL, 10);
+        printf("Current line:\t%s\n", data_line);
+        if (begins_with(data_line, "[NAME]")){ pet->name = data_line + 6; }
+        if (begins_with(data_line, "[FOOD_STATUS]")){ pet->food_status = atoi(data_line+13); }
+        if (begins_with(data_line, "[HAPPY_STATUS]")){ pet->happy_status = atoi(data_line+14); }
+        if (begins_with(data_line, "[DISCIPLINE]")){ pet->discipline = atoi(data_line+12); }
+        if (begins_with(data_line, "[STAGE]")){ pet->stage = atoi(data_line+7); }
+        if (begins_with(data_line, "[HYGIENE]")){ pet->hygiene = atoi(data_line+9); }
+        if (begins_with(data_line, "[HEALTH]")){ pet->health = atoi(data_line+8); }
+        if (begins_with(data_line, "[SECONDS]")){ savetime = strtol(data_line+9, NULL, 10);
         }
-        printf("%s\n", data_line);
-        print_pet(*pet);
     }
+    print_pet(*pet);
 
-    printf("You were away for %ld seconds!\n", seconds_offline);
+    time_t loadtime = time(NULL);
+    time_t time_offline = loadtime - savetime;
+    printf("You were away for %lld seconds!\n", time_offline);
 
     return 0;
 }
@@ -109,7 +107,7 @@ int save(tamagotchi pet, char *savefile) {
 
     char save_data[512];
     time_t seconds = time(NULL);
-    sprintf(save_data, "[NAME]\n%s\n[FOOD_STATUS]\n%d\n[HAPPY_STATUS]\n%d\n[DISCIPLINE]\n%d\n[STAGE]\n%d\n[HYGIENE]\n%d\n[HEALTH]\n%d\n[SECONDS]\n%lld\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds);
+    sprintf(save_data, "[NAME]%s\n[FOOD_STATUS]%d\n[HAPPY_STATUS]%d\n[DISCIPLINE]%d\n[STAGE]%d\n[HYGIENE]%d\n[HEALTH]%d\n[SECONDS]%lld\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds);
 
     fputs(save_data, (FILE *) file);
     fclose((FILE *) file);

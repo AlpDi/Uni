@@ -76,7 +76,9 @@ int main(void){
             system("clear");
             break;
         case 'l':
-        //Load
+            printf("Loading from save file...\n");
+            terry = pet_init("");
+            load("save", &terry);
         case 'q':
             return 0;
     }
