@@ -71,25 +71,30 @@ int main(void){
     Sprites sprites = sprites_init();
     //print_sprites(sprites);
 
-    int input_menu;
+    int input_menu; int failure = -1;
     do {
-        printf("N: New game\nL: Load save file\nQ: Quit\n");
-        input_menu = getchar() | 32; while (input_menu != ('\n'|32) && getchar() != '\n'){}
-    } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
-    switch (input_menu) {
-        case 'n':
-            terry = pet_init("terry");
-            clear_terminal();
-            break;
-        case 'l':
-            printf("Loading from save file...\n");
-            terry = pet_init("");
-            load("save", &terry);
-            break;
-        case 'q':
-            return 0;
-    }
-
+        do {
+            printf("N: New game\nL: Load save file\nQ: Quit\n");
+            input_menu = getchar() | 32;
+            while (input_menu != ('\n' | 32) && getchar() != '\n') {}
+        } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
+        switch (input_menu) {
+            case 'n':
+                terry = pet_init("terry");
+                clear_terminal();
+                break;
+            case 'l':
+                printf("Loading from save file...\n");
+                terry = pet_init("");
+                failure = load("save", &terry);
+                if (failure) {
+                    printf("Failed to load.\n");
+                }
+                break;
+            case 'q':
+                return 0;
+        }
+    } while (failure);
     int loop = 1;
 
     while (loop){
@@ -157,13 +162,18 @@ int main(void){
                 }
                 while (input != 'y' && input != 'n' && input != ('\n'|32));
                 if(input != 'n') {
-                    save(terry, "save");
-                    clear_terminal();
-                    return 0;
+                    int failure = save(terry, "save");
+                    if (!failure){
+                        clear_terminal();
+                        return 0;
+                    } else {
+                        printf("Failed to write.\n");
+                    }
                 } else {
                     clear_terminal();
                     return 0;
                 }
+                break;
         }
     }
 }
