@@ -69,6 +69,7 @@ int main(void){
     printf("N: New game\nL: Load save file\nQ: Quit\n");
     char input_menu;
     scanf(" %c", &input_menu);
+    input_menu = input_menu | 32;
     switch(input_menu){
         case 'n':
             terry = pet_init("terry");
@@ -103,8 +104,8 @@ int main(void){
         printf("\n\n%s\n\n", act_sprite);
         printf("---------------\n");
         printf("A: feed  S: play  D: scold F: heal\n");
-        //TODO case insensitive machen
         scanf(" %c", &user_response);
+        user_response = user_response | 32;
         switch(user_response){
             case 'a':
                 feed(&terry, chocolate_bar);
@@ -123,6 +124,7 @@ int main(void){
                 printf("\n Do you want to save? [Y/N] \n");
                 char input;
                 scanf(" %c", &input);
+                input = input | 32;
                 if(input == 'y'){
                     save(terry, "save");
                     system("clear");
