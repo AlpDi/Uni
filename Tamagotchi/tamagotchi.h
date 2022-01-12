@@ -14,7 +14,7 @@ typedef struct tamagotchi{
 } tamagotchi; 
 
 tamagotchi pet_init(char* name);
-void print_pet(tamagotchi pet);//, Sprites sprites);
+void print_pet(tamagotchi pet, char *sprite, char *message);
 
 int load(char *savefile, tamagotchi *pet);
 int save(tamagotchi pet, char *savefile);

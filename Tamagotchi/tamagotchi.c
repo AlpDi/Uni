@@ -34,7 +34,8 @@ int begins_with(char *long_string, char *short_searchstring){
     return (short_searchstring[i]) ? 0 : 1;
 }
 
-void print_pet(tamagotchi pet){
+void print_pet(tamagotchi pet, char *sprite, char *message){
+    /*
     printf("name: %s\n", pet.name);
     printf("food status: %d\n", pet.food_status);
     printf("happy status: %d\n", pet.happy_status);
@@ -42,7 +43,31 @@ void print_pet(tamagotchi pet){
     printf("stage: %d\n", pet.stage);
     printf("hygiene: %d\n", pet.hygiene);
     printf("health: %d\n", pet.health);
-    // print sprite somewhere here?
+     */
+
+    printf("------------------------\n");
+    if (message[0] != '\0') {
+        printf("> %s\n------------------------\n", message);
+    }
+    printf("%s", sprite);
+    printf("\n------------------------");
+    printf("\nHealth:      \t");
+    for (int i = 0; i < pet.health; i++) {
+        printf("🧡");
+    } printf("\nFood:      \t");
+    for (int i = 0; i < pet.food_status; i++) {
+        printf("🍔");
+    } printf("\nHappy:     \t");
+    for (int i = 0; i < pet.happy_status; i++) {
+        printf("h");
+    } printf("\nHygiene:   \t");
+    for (int i = 0; i < pet.hygiene; i++) {
+        printf("y");
+    } printf("\nDiscipline:\t");
+    for (int i = 0; i < 5; i++) {
+        printf("d");
+    } printf("\nName:      \t%s\n\"------------------------\n", pet.name);
+
 }
 
 int load(char *savefile, tamagotchi *pet){
@@ -74,7 +99,6 @@ int load(char *savefile, tamagotchi *pet){
         if (begins_with(data_line, "[SECONDS]")){ savetime = strtol(data_line+9, NULL, 10);
         }
     }
-    print_pet(*pet);
 
     time_t loadtime = time(NULL);
     time_t time_offline = loadtime - savetime;

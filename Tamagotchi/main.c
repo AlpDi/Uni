@@ -141,6 +141,7 @@ int main(void){
     while (loop){
         clear_terminal();
         char* act_sprite = "No Sprite loaded yet";
+        char* message_status = "";
         int user_response;
 
         switch (terry.stage) {
@@ -162,6 +163,9 @@ int main(void){
             default:
                 break;
         }
+        print_pet(terry, act_sprite, message_status);
+
+        /*
         printf("---------------\n");
         //TODO in Funktion auslagern
         for(int i=0; i < terry.health; i++){
@@ -174,6 +178,8 @@ int main(void){
 
         printf("\n\n%s\n\n", act_sprite);
         printf("---------------\n");
+        */
+
         do {
             printf("A: feed  S: play  D: scold F: heal\n");
             user_response = getchar(); while (user_response != '\n' && getchar() != '\n'){}
