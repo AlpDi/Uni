@@ -104,7 +104,6 @@ int main(void){
                 } while (failure < 0);
 
 
-                printf("Debug-Buffer:\t%s\n", (char *) name_buffer);
                 if (!failure){
                     printf("Your Tamagotchi will be named \'%s\'.\nIs this your wish? [Y|n]\n", (char *) name_buffer);
                     int response;
