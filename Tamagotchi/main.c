@@ -137,10 +137,10 @@ int main(void){
     } while (failure);
     int loop = 1;
 
+    char* message_status = "";
     while (loop){
         clear_terminal();
         char* act_sprite = "No Sprite loaded yet";
-        char* message_status = "";
         int user_response;
 
         switch (terry.stage) {
@@ -213,7 +213,7 @@ int main(void){
                         clear_terminal();
                         return 0;
                     } else {
-                        printf("Failed to write.\n");
+                        message_status = "Failed to write.";
                     }
                 } else {
                     clear_terminal();
