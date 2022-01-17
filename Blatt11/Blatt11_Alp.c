@@ -81,6 +81,26 @@ void reverse_list(){
     last = temp;
 }
 
+void sort_list(){  
+    student *current = NULL, *ptr = NULL, *temp = NULL;  
+     
+    if(head == NULL) {  
+        return;  
+    }  
+    else {  
+        for(current = head; current->next != NULL; current = current->next) {  
+            for(ptr = current->next; ptr->next != NULL; ptr = ptr->next) {    
+                if(strcmp(current->Nachname,ptr->Nachname) > 0) {  
+                    temp = current;  
+                    current = ptr;  
+                    ptr = temp;  
+                }  
+            }  
+        }  
+    }  
+}  
+
+
 int main(){
 
     push_student("Anna", "Musterfrau", 22222, "Am Schwarzenberg-Campus 3", 4);
@@ -90,10 +110,8 @@ int main(){
     push_student("Peter", "Schaf",     12345,  "Bakerstreet 221b",         9);
 
     print_list();
-    delete_student(3); 
-    printf("- delete element 3 -\n------------------------\n");
+    printf("- sort list alphabetically -\n------------------------\n");
+    sort_list();
     print_list();
-    reverse_list();
-    printf("- Reverse list -\n------------------------\n");
-    print_list(); 
+
 }

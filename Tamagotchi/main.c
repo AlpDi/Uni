@@ -2,6 +2,7 @@
 #include "sprites.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 
 
@@ -52,44 +53,118 @@ const char *get_platform_name() {
     return (PLATFORM_NAME == NULL) ? "None/Unknown" : PLATFORM_NAME;
 }
 
-
+void clear_terminal(){
+    if (strcmp(PLATFORM_NAME, "windows") == 0){ system("cls"); }
+    else if (strcmp(PLATFORM_NAME, "linux") == 0){ system("clear"); }
+    else { printf("System %s was not expected.\nCant clear screen!\n\n", PLATFORM_NAME); }
+}
 
 int main(void){
     int chocolate_bar = 2;
 
     printf("Running on system %s\n", get_platform_name());
 
-    tamagotchi terry = pet_init("terry");
+    tamagotchi terry;  // = pet_init("terry");
     
-    feed(&terry, chocolate_bar);
+    //feed(&terry, chocolate_bar);
     //print_pet(terry);
     Sprites sprites = sprites_init();
     //print_sprites(sprites);
 
-    printf("N: New game\nL: Load save file\nQ: Quit\n");
-    char input_menu;
-    scanf(" %c", &input_menu);
-    input_menu = input_menu | 32;
-    switch(input_menu){
-        case 'n':
-            break;
-        case 'l':
-            load("save", &terry);
-            break;
-        case 'q':
-            return 0;
-    }
+    int input_menu; int failure = -1;
+    do {
+        do {
+            printf("N: New game\nL: Load save file\nQ: Quit\n");
+            input_menu = getchar() | 32;
+            while (input_menu != ('\n' | 32) && getchar() != '\n') {}
+        } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
+        switch (input_menu) {
+            case 'n':
+                // new tamagotchi
+                printf("How do you want to name your tamagotchi?\n");
+                char name_buffer[255];
+                int j = 0;
+                do {
+                    name_buffer[j] = (char) getchar();
+                    if (name_buffer[j] != '\n') {
+                        if (j == 0) {
+                            name_buffer[j] &= -33;
+                        } else {
+                            name_buffer[j] |= 32;
+                        }
+                    } else {
+                        name_buffer[j] = '\0';
+                        if (j == 0) {
+                            failure = 1;
+                        } else {
+                            failure = 0;
+                        }
+                    }
+                    j++;
+                } while (failure < 0);
 
 
+                if (!failure){
+                    printf("Your Tamagotchi will be named \'%s\'.\nIs this your wish? [Y|n]\n", (char *) name_buffer);
+                    int response;
+                    do {
+                        response = getchar() | 32;
+                        while (response != ('\n' | 32) && getchar() != '\n'){}
+                    } while (response != 'y' && response != 'n' && response != ('\n' | 32));
+                    if (response == 'n') {
+                        printf("Name was not accepted.\n");
+                        failure = -1;
+                        clear_terminal();
+                        break;
+                    }
+                } else { printf("That name did\'nt work...\n"); break; }
+
+                terry = pet_init((char *)name_buffer);
+                clear_terminal();
+                break;
+            case 'l':
+                // load tamagotchi
+                printf("Loading from save file...\n");
+                terry = pet_init("");
+                failure = load("save", &terry);
+                if (failure) {
+                    printf("Failed to load.\n");
+                }
+                break;
+            case 'q':
+                return 0;
+        }
+    } while (failure);
     int loop = 1;
 
+    char* message_status = "";
     while (loop){
-        system("clear");
+        clear_terminal();
         char* act_sprite = "No Sprite loaded yet";
-        char user_response;
-        if(terry.stage == 0){
-            act_sprite = sprites.baby;
+        int user_response;
+
+        switch (terry.stage) {
+            case 0:
+                act_sprite = sprites.egg;
+                break;
+            case 1:
+                act_sprite = sprites.baby;
+                break;
+            case 2:
+                act_sprite = sprites.teen;
+                break;
+            case 3:
+                act_sprite = sprites.adult;
+                break;
+            case 4:
+                act_sprite = sprites.dead;
+                break;
+            default:
+                break;
         }
+        print_pet(terry, act_sprite, message_status);
+
+        /*
         printf("---------------\n");
         //TODO in Funktion auslagern
         for(int i=0; i < terry.health; i++){
@@ -102,12 +177,17 @@ int main(void){
 
         printf("\n\n%s\n\n", act_sprite);
         printf("---------------\n");
-        printf("A: feed  S: play  D: scold F: heal\n");
-        scanf(" %c", &user_response);
-        user_response = user_response | 32;
+        */
+
+        do {
+            printf("A: feed  S: play  D: scold F: heal\n");
+            user_response = getchar(); while (user_response != '\n' && getchar() != '\n'){}
+            user_response = user_response | 32;
+        } while (user_response != 'a' && user_response != 's' && user_response != 'd' && user_response != 'f' && user_response != 'q');
         switch(user_response){
             case 'a':
                 feed(&terry, chocolate_bar);
+                // TODO food menu
                 break;
             case 's':
                 play(&terry, 3);
@@ -119,20 +199,27 @@ int main(void){
                 heal(&terry, 1);
                 break;
             case 'q': 
-                system("clear");
-                printf("\n Do you want to save? [Y/N] \n");
-                char input;
-                scanf(" %c", &input);
-                input = input | 32;
-                if(input == 'y'){
-                    save(terry, "save");
-                    system("clear");
+                clear_terminal();
+                int input;
+                do {
+                        printf("\n Do you want to save? [Y/n] \n");
+                        input = getchar(); while (input != '\n' && getchar() != '\n'){}
+                        input |= 32;
+                }
+                while (input != 'y' && input != 'n' && input != ('\n'|32));
+                if(input != 'n') {
+                    int failure = save(terry, "save");
+                    if (!failure){
+                        clear_terminal();
+                        return 0;
+                    } else {
+                        message_status = "Failed to write.";
+                    }
+                } else {
+                    clear_terminal();
                     return 0;
                 }
-                else{
-                    system("clear");
-                    return 0;
-                }
-        } 
+                break;
+        }
     }
 }
