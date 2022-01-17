@@ -64,9 +64,9 @@ void print_pet(tamagotchi pet, char *sprite, char *message){
     for (int i = 0; i < pet.hygiene; i++) {
         printf("y");
     } printf("\nDiscipline:\t");
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < pet.discipline; i++) {
         printf("d");
-    } printf("\nName:      \t%s\n\"------------------------\n", pet.name);
+    } printf("\nName:      \t%s\n------------------------\n", pet.name);
 
 }
 
@@ -89,7 +89,10 @@ int load(char *savefile, tamagotchi *pet){
 
     while (fgets(data_line, 256, file)){
         printf("Current line:\t%s\n", data_line);
-        if (begins_with(data_line, "[NAME]")){ pet->name = data_line + 6; }
+        if (begins_with(data_line, "[NAME]")){
+            pet->name = data_line + 6;
+            printf("pet->name: %s\tdata_line+6: %s\tdata_line: %s\n", pet->name, data_line + 6, data_line);
+        }
         if (begins_with(data_line, "[FOOD_STATUS]")){ pet->food_status = atoi(data_line+13); }
         if (begins_with(data_line, "[HAPPY_STATUS]")){ pet->happy_status = atoi(data_line+14); }
         if (begins_with(data_line, "[DISCIPLINE]")){ pet->discipline = atoi(data_line+12); }
@@ -103,6 +106,7 @@ int load(char *savefile, tamagotchi *pet){
     time_t loadtime = time(NULL);
     time_t time_offline = loadtime - savetime;
     printf("You were away for %lld seconds!\n", time_offline);
+    // TODO simulate time away based on time_offline (millis)
 
     return 0;
 }
