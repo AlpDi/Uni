@@ -90,16 +90,29 @@ int load(char *savefile, tamagotchi *pet){
     while (fgets(data_line, 256, file)){
         printf("Current line:\t%s\n", data_line);
         if (begins_with(data_line, "[NAME]")){
-            pet->name = data_line + 6;
-            printf("pet->name: %s\tdata_line+6: %s\tdata_line: %s\n", pet->name, data_line + 6, data_line);
+            pet->name = &data_line[6];
+            printf("pet->name: %s\tdata_line+6: %c\tdata_line: %s\n", pet->name, data_line[6], data_line);
         }
-        if (begins_with(data_line, "[FOOD_STATUS]")){ pet->food_status = atoi(data_line+13); }
-        if (begins_with(data_line, "[HAPPY_STATUS]")){ pet->happy_status = atoi(data_line+14); }
-        if (begins_with(data_line, "[DISCIPLINE]")){ pet->discipline = atoi(data_line+12); }
-        if (begins_with(data_line, "[STAGE]")){ pet->stage = atoi(data_line+7); }
-        if (begins_with(data_line, "[HYGIENE]")){ pet->hygiene = atoi(data_line+9); }
-        if (begins_with(data_line, "[HEALTH]")){ pet->health = atoi(data_line+8); }
-        if (begins_with(data_line, "[SECONDS]")){ savetime = strtol(data_line+9, NULL, 10);
+        if (begins_with(data_line, "[FOOD_STATUS]")){
+            pet->food_status = atoi(data_line+13);
+        }
+        if (begins_with(data_line, "[HAPPY_STATUS]")){
+            pet->happy_status = atoi(data_line+14);
+        }
+        if (begins_with(data_line, "[DISCIPLINE]")){
+            pet->discipline = atoi(data_line+12);
+        }
+        if (begins_with(data_line, "[STAGE]")){
+            pet->stage = atoi(data_line+7);
+        }
+        if (begins_with(data_line, "[HYGIENE]")){
+            pet->hygiene = atoi(data_line+9);
+        }
+        if (begins_with(data_line, "[HEALTH]")){
+            pet->health = atoi(data_line+8);
+        }
+        if (begins_with(data_line, "[SECONDS]")){
+            savetime = strtol(data_line+9, NULL, 10);
         }
     }
 
@@ -137,7 +150,7 @@ int save(tamagotchi pet, char *savefile) {
 
     char save_data[512];
     time_t seconds = time(NULL);
-    sprintf(save_data, "[NAME]%s\n[FOOD_STATUS]%d\n[HAPPY_STATUS]%d\n[DISCIPLINE]%d\n[STAGE]%d\n[HYGIENE]%d\n[HEALTH]%d\n[SECONDS]%lld\n", pet.name, pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds);
+    sprintf(save_data, "[FOOD_STATUS]%d\n[HAPPY_STATUS]%d\n[DISCIPLINE]%d\n[STAGE]%d\n[HYGIENE]%d\n[HEALTH]%d\n[SECONDS]%lld\n[NAME]%s\n", pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds, pet.name);
 
     fputs(save_data, (FILE *) file);
     fclose((FILE *) file);
