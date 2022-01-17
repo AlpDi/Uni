@@ -53,11 +53,11 @@ const char *get_platform_name() {
     return (PLATFORM_NAME == NULL) ? "None/Unknown" : PLATFORM_NAME;
 }
 
-void clear_terminal(){
+void clear_terminal(){ //*
     if (strcmp(PLATFORM_NAME, "windows") == 0){ system("cls"); }
     else if (strcmp(PLATFORM_NAME, "linux") == 0){ system("clear"); }
     else { printf("System %s was not expected.\nCant clear screen!\n\n", PLATFORM_NAME); }
-}
+} //*/}
 
 int main(void){
     int chocolate_bar = 2;
