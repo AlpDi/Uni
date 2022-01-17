@@ -59,10 +59,10 @@ void print_pet(tamagotchi pet, char *sprite, char *message){
         printf("🍔");
     } printf("\nHappy:     \t");
     for (int i = 0; i < pet.happy_status; i++) {
-        printf("h");
+        printf("😄");
     } printf("\nHygiene:   \t");
     for (int i = 0; i < pet.hygiene; i++) {
-        printf("y");
+        printf("🧼");
     } printf("\nDiscipline:\t");
     for (int i = 0; i < pet.discipline; i++) {
         printf("d");
