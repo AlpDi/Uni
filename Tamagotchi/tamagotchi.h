@@ -13,6 +13,15 @@ typedef struct tamagotchi{
 
 } tamagotchi; 
 
+
+typedef struct {
+    int *update_display;
+    int *lock;
+    int *game_active;
+    time_t *last_update;
+    tamagotchi *pet;
+} pet_update;
+
 tamagotchi pet_init(char* name);
 void print_pet(tamagotchi pet, char *sprite, char *message);
 
@@ -25,4 +34,4 @@ void play(tamagotchi *pet, int fun);
 void scold(tamagotchi *pet, int intensity);
 void heal(tamagotchi *pet, int strength);
 
-void update_status(tamagotchi *pet, int millis);  // Zeit muss eingebunden werden!
+void *update_looper(pet_update *old_pet);

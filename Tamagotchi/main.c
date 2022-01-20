@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-
+#include <pthread.h>
 
 
 #include <stdio.h>
@@ -138,6 +138,22 @@ int main(void){
     int loop = 1;
 
     char* message_status = "";
+
+    int lock_vars = 0;
+    pet_update old_pet;
+    old_pet.pet = &terry;
+    old_pet.game_active = &loop;
+    int update_display = 0;
+    old_pet.update_display = &update_display;
+    time_t last_update = time(NULL);
+    old_pet.last_update = &last_update;
+    old_pet.lock = &lock_vars;
+
+    srand(time(NULL));
+
+    pthread_t thread_id_update_status;
+    pthread_create(&thread_id_update_status, NULL, update_looper, (void *) &old_pet);
+
     while (loop){
         clear_terminal();
         char* act_sprite = "No Sprite loaded yet";
@@ -181,9 +197,13 @@ int main(void){
 
         do {
             printf("A: feed  S: play  D: scold F: heal\n");
-            user_response = getchar(); while (user_response != '\n' && getchar() != '\n'){}
+            user_response = getchar(); while (update_display == 0 && user_response != '\n' && getchar() != '\n'){}
             user_response = user_response | 32;
-        } while (user_response != 'a' && user_response != 's' && user_response != 'd' && user_response != 'f' && user_response != 'q');
+        } while (update_display == 0 && user_response != 'a' && user_response != 's' && user_response != 'd' && user_response != 'f' && user_response != 'q');
+        if (update_display){
+            update_display = 0;
+            continue;
+        }
         switch(user_response){
             case 'a':
                 feed(&terry, chocolate_bar);
@@ -211,15 +231,20 @@ int main(void){
                     int failure = save(terry, "save");
                     if (!failure){
                         clear_terminal();
-                        return 0;
+                        loop = 0;
                     } else {
                         message_status = "Failed to write.";
                     }
                 } else {
                     clear_terminal();
-                    return 0;
+                    loop = 0;
                 }
                 break;
         }
     }
+    if (loop) {
+        loop = 0;
+        printf("\'loop\' was not 0 after game loop!");
+    }
+    pthread_join(thread_id_update_status, NULL);
 }
