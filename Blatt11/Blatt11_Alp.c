@@ -81,24 +81,73 @@ void reverse_list(){
     last = temp;
 }
 
+void refreshPointers(student *A) {
+    if (A->prev != NULL)
+        A->prev->next = A;
+
+    if (A->next != NULL)
+        A->next->prev = A;
+}
+
+void swap(student *A,student *B) {
+    student *swapperVector[4];
+    student *temp;
+
+    if (A == B) return;
+
+    if (B->next == A) {
+        temp = A;
+        A = B;
+        B = temp;
+    }
+    
+            /*
+                 A B               A B 
+            prev X A    =>    prev B X
+            next B Y          next Y A
+
+                 0 1     --\       2 0
+                 2 3     --/       3 1
+            */
+
+    swapperVector[0] = A->prev;
+    swapperVector[1] = B->prev;
+    swapperVector[2] = A->next;
+    swapperVector[3] = B->next;
+
+    if ( (A->next == B && B->prev == A ) || ( A->prev == B && B->next == A) ) {
+        A->prev = swapperVector[2];
+        B->prev = swapperVector[0];
+        A->next = swapperVector[3];
+        B->next = swapperVector[1];
+    } else {
+        A->prev = swapperVector[1];
+        B->prev = swapperVector[0];
+        A->next = swapperVector[3];
+        B->next = swapperVector[2];
+    }
+
+    refreshPointers(A);
+    refreshPointers(B);
+}
+
 void sort_list(){  
-    student *current = NULL, *ptr = NULL, *temp = NULL;  
-     
-    if(head == NULL) {  
-        return;  
-    }  
-    else {  
-        for(current = head; current->next != NULL; current = current->next) {  
-            for(ptr = current->next; ptr->next != NULL; ptr = ptr->next) {    
-                if(strcmp(current->Nachname,ptr->Nachname) > 0) {  
-                    temp = current;  
-                    current = ptr;  
-                    ptr = temp;  
+    student *ptr = head;
+    int loop = 1;
+
+    while(loop){
+        loop = 0;
+        while(ptr->next != NULL){    
+            if(strcmp(ptr->Nachname, ptr->next->Nachname) > 0) {  
+                loop = 1;
+                swap(ptr, ptr->next);
+                break;  
                 }  
-            }  
+            ptr=ptr->next;  
         }  
-    }  
+    } 
 }  
+
 
 
 int main(){
@@ -111,6 +160,7 @@ int main(){
 
     print_list();
     printf("- sort list alphabetically -\n------------------------\n");
+    //swap(head->next->next, head->next->next->next);
     sort_list();
     print_list();
 
