@@ -1,6 +1,6 @@
 CC = gcc
 FLAGS = -ggdb -Wall -Wextra -pedantic -std=c11
- 
+LINKS = -lpthreads
 
 OPTIMIZATIONS = -03
 OBJECTS = main.o tamagotchi.o sprites.o
@@ -9,7 +9,7 @@ EXECUTABLE = -o tamagotchi
 
 
 main: main.o tamagotchi.o sprites.o
-	gcc $(EXECUTABLE) $(OBJECTS) $(FLAGS) 
+	gcc $(EXECUTABLE) $(OBJECTS) $(FLAGS) $(LINKS)
 	
 
 main.o: main.c

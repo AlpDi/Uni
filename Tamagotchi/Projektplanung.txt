@@ -54,3 +54,6 @@ main.c:
 -game loop
     -switch case
     -keyboard input
+
+
+void create_threads(Game *game);
