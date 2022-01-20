@@ -1,6 +1,6 @@
 CC = gcc
 FLAGS = -ggdb -Wall -Wextra -pedantic -std=c11
-LINKS = -lpthreads
+LINKS = -lpthread
 
 OPTIMIZATIONS = -03
 OBJECTS = main.o tamagotchi.o sprites.o

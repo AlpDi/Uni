@@ -1,5 +1,6 @@
 #include <stdio.h>
 // #include "sprites.h"
+#include <time.h>
 
 typedef struct tamagotchi{
 
