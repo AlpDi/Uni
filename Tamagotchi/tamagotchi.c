@@ -70,6 +70,8 @@ void print_pet(tamagotchi pet, char *sprite, char *message){
 
 }
 
+char data_line[256] = "";
+
 int load(char *savefile, tamagotchi *pet){
     char filename[256] = "";
     sprintf(filename, "%s.tamagotchi", savefile);
@@ -85,13 +87,11 @@ int load(char *savefile, tamagotchi *pet){
 
     long long int savetime;
 
-    char data_line[256] = "";
 
     while (fgets(data_line, 256, file)){
         printf("Current line:\t%s\n", data_line);
         if (begins_with(data_line, "[NAME]")){
             pet->name = &data_line[6];
-            printf("pet->name: %s\tdata_line+6: %c\tdata_line: %s\n", pet->name, data_line[6], data_line);
         }
         if (begins_with(data_line, "[FOOD_STATUS]")){
             pet->food_status = atoi(data_line+13);
@@ -168,6 +168,7 @@ void play(tamagotchi *pet, int fun){
     // or snake?
     // or pong?
 }
+
 void scold(tamagotchi *pet, int intensity){
     pet->discipline += intensity;
     // reduce fun when scolding? or remove completely?
