@@ -54,23 +54,92 @@ const char *get_platform_name() {
     return (PLATFORM_NAME == NULL) ? "None/Unknown" : PLATFORM_NAME;
 }
 
+typedef struct {
+    updated_t *user_update;
+    int *lock;
+    int *game_active;
+    int *pause;
+    time_t *last_update;
+    tamagotchi *pet;
+    char *message;
+} pet_update;
+
+
 void clear_terminal(){ //*
     if (strcmp(PLATFORM_NAME, "windows") == 0){ system("cls"); }
     else if (strcmp(PLATFORM_NAME, "linux") == 0){ system("clear"); }
     else { printf("System %s was not expected.\nCant clear screen!\n\n", PLATFORM_NAME); }
 } //*/}
 
-int main(void){
-    int chocolate_bar = 2;
 
-    printf("Running on system %s\n", get_platform_name());
 
-    tamagotchi terry;  // = pet_init("terry");
-    
-    //feed(&terry, chocolate_bar);
-    //print_pet(terry);
+void *background_loop(void *void_pet){
+    pet_update *pet = (pet_update *) void_pet;
     Sprites sprites = sprites_init();
-    //print_sprites(sprites);
+    char *act_sprite = "";
+    while (*pet->game_active){
+        updated_t updates = {0, 0, 0, 0, 0, 0, 0};
+        if (!*pet->lock){
+            *pet->lock += 1;
+            if (*pet->lock > 1) {
+                *pet->lock -= 1;
+                continue;
+            }
+            time_t time_dif = (time_t) time(NULL) - *pet->last_update;
+            *pet->last_update = time(NULL);
+            if (!*pet->pause) {
+                updates = update_status(pet->pet, time_dif);
+            }
+            *pet->lock -= 1;
+        }
+
+
+        if (!*pet->pause && updates.stage_updated) {
+            switch (pet->pet->stage) {
+                case 0:
+                    act_sprite = sprites.egg;
+                    break;
+                case 1:
+                    act_sprite = sprites.baby;
+                    break;
+                case 2:
+                    act_sprite = sprites.teen;
+                    break;
+                case 3:
+                    act_sprite = sprites.adult;
+                    break;
+                case 4:
+                    act_sprite = sprites.dead;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (!*pet->lock && !*pet->pause && (updates.any_updated || pet->user_update->any_updated)) {
+            clear_terminal();
+            print_pet(*pet->pet, act_sprite, pet->message);
+            printf("%s", pet->message);
+            if (pet->user_update->any_updated){
+                pet->user_update->any_updated = 0;
+                pet->user_update->discipline_updated = 0;
+                pet->user_update->stage_updated = 0;
+                pet->user_update->hygiene_updated = 0;
+                pet->user_update->health_updated = 0;
+                pet->user_update->happy_updated = 0;
+                pet->user_update->food_updated = 0;
+            }
+        }
+
+        while (*pet->pause){}
+    }
+    return NULL;
+}
+
+
+
+int main(void){
+    tamagotchi terry;
 
     int input_menu; int failure = -1;
     do {
@@ -136,88 +205,63 @@ int main(void){
                 return 0;
         }
     } while (failure);
-    int loop = 1;
 
+    int loop = 1;
     char* message_status = "";
+    int pause = 0;
 
     int lock_vars = 0;
-    pet_update old_pet;
-    old_pet.pet = &terry;
-    old_pet.game_active = &loop;
-    int update_display = 0;
-    old_pet.update_display = &update_display;
+    pet_update remote_pet;
+    remote_pet.pet = &terry;
+    remote_pet.game_active = &loop;
     time_t last_update = time(NULL);
-    old_pet.last_update = &last_update;
-    old_pet.lock = &lock_vars;
+    remote_pet.last_update = &last_update;
+    remote_pet.lock = &lock_vars;
+    remote_pet.message = message_status;
+    remote_pet.pause = &pause;
+    updated_t user_update = {0, 0, 0, 0, 0, 0, 0};
+    remote_pet.user_update = &user_update;
+
 
     srand(time(NULL));
 
     pthread_t thread_id_update_status;
-    pthread_create(&thread_id_update_status, NULL, update_looper, (void *) &old_pet);
+    pthread_create(&thread_id_update_status, NULL, background_loop, &remote_pet);
+
+
+    int user_response;
 
     while (loop){
-        clear_terminal();
-        char* act_sprite = "No Sprite loaded yet";
-        int user_response;
-
-        switch (terry.stage) {
-            case 0:
-                act_sprite = sprites.egg;
-                break;
-            case 1:
-                act_sprite = sprites.baby;
-                break;
-            case 2:
-                act_sprite = sprites.teen;
-                break;
-            case 3:
-                act_sprite = sprites.adult;
-                break;
-            case 4:
-                act_sprite = sprites.dead;
-                break;
-            default:
-                break;
-        }
-        print_pet(terry, act_sprite, message_status);
-
-        /*
-        printf("---------------\n");
-        //TODO in Funktion auslagern
-        for(int i=0; i < terry.health; i++){
-            printf("🧡");
-        };
-        printf("  ");
-        for(int i=0; i < terry.food_status; i++){
-            printf("🍔");
-        };
-
-        printf("\n\n%s\n\n", act_sprite);
-        printf("---------------\n");
-        */
 
         do {
             printf("A: feed  S: play  D: scold F: heal\n");
-            user_response = getchar(); while (update_display == 0 && user_response != '\n' && getchar() != '\n'){}
+            user_response = getchar(); while (user_response != '\n' && getchar() != '\n'){}
             user_response = user_response | 32;
-        } while (update_display == 0 && user_response != 'a' && user_response != 's' && user_response != 'd' && user_response != 'f' && user_response != 'q');
-        if (update_display){
-            update_display = 0;
-            continue;
-        }
+        } while (user_response != 'a' && user_response != 's' && user_response != 'd' && user_response != 'f' && user_response != 'q');
+        pause = 1;
+        while (lock_vars){}
+        lock_vars += 1; if (lock_vars > 1) {lock_vars = 1;}
         switch(user_response){
             case 'a':
-                feed(&terry, chocolate_bar);
+                feed(&terry, 1);
+                user_update.food_updated += 1;
+                user_update.any_updated += 1;
                 // TODO food menu
                 break;
             case 's':
-                play(&terry, 3);
+                play(&terry, 1);
+                user_update.food_updated += 1;
+                user_update.any_updated += 1;
                 break;
             case 'd':
-                scold(&terry, 2);
+                scold(&terry, 1);
+                user_update.discipline_updated += 1;
+                user_update.any_updated += 1;
                 break;
             case 'f':
                 heal(&terry, 1);
+                user_update.health_updated += 1;
+                user_update.any_updated += 1;
                 break;
             case 'q': 
                 clear_terminal();
@@ -242,6 +286,7 @@ int main(void){
                 }
                 break;
         }
+        pause = 0; lock_vars = 0;
     }
     if (loop) {
         loop = 0;
