@@ -163,18 +163,22 @@ void feed(tamagotchi *pet, int food){
 
 
 void play(tamagotchi *pet, int fun){
+    time_t t;
+
+    srand((unsigned) time(&t));
+
     int height = 20, width = 10;
-    int state, score, flag;
+    int state, score;
 
 
 
     state = 0;
     score = 0;
-    int x = height / 2;
-    int y = width / 2;
+    int x = width / 2;
+    int y = height / 2;
 
-    int fx = 1 + rand() % 19;
-    int fy = 1 + rand() % 19;
+    int fx = 1 + rand() % 8;
+    int fy = 1 + rand() % 18;
 
 
     while(!state){
@@ -226,14 +230,14 @@ void play(tamagotchi *pet, int fun){
             }
 
         if(x < 0
-        || x > height
-        || y > width){
+        || x > width
+        || y > height){
             state = 1;
         }
 
         if(x == fx && y == fy){
-            fx = 1 + rand() % 19;
-            fy = 1 + rand() % 19;
+            fx = 1 + rand() % 8;
+            fy = 1 + rand() % 18;
             score += 1;
         }
 
