@@ -37,12 +37,12 @@ int begins_with(char *long_string, char *short_searchstring){
 void print_pet(tamagotchi pet, char *sprite, char *message){
     /*
     printf("name: %s\n", pet.name);
-    printf("food status: %d\n", pet.food_status);
-    printf("happy status: %d\n", pet.happy_status);
-    printf("discipline: %d\n", pet.discipline);
-    printf("stage: %d\n", pet.stage);
-    printf("hygiene: %d\n", pet.hygiene);
-    printf("health: %d\n", pet.health);
+    printf("food status: %d\n", pet.food_updated);
+    printf("happy status: %d\n", pet.happy_updated);
+    printf("discipline_updated: %d\n", pet.discipline_updated);
+    printf("stage_updated: %d\n", pet.stage_updated);
+    printf("hygiene_updated: %d\n", pet.hygiene_updated);
+    printf("health_updated: %d\n", pet.health_updated);
      */
 
     printf("------------------------\n");
@@ -89,7 +89,6 @@ int load(char *savefile, tamagotchi *pet){
 
 
     while (fgets(data_line, 256, file)){
-        printf("Current line:\t%s\n", data_line);
         if (begins_with(data_line, "[NAME]")){
             pet->name = &data_line[6];
         }
@@ -164,6 +163,7 @@ void feed(tamagotchi *pet, int food){
 
 
 void play(tamagotchi *pet, int fun){
+    pet->happy_status += fun;
     //create tictactoe field 
     // or snake?
     // or pong?
@@ -181,8 +181,8 @@ void heal(tamagotchi *pet, int strength){
     if (pet->health > 10) {pet->health = 10;}
 }
 
-int update_status(tamagotchi *pet, time_t passed_millis){
-    int updates = 0;
+updated_t update_status(tamagotchi *pet, time_t passed_millis){
+    updated_t updates = {0, 0, 0, 0, 0, 0, 0};
     for (int i = 0; i < passed_millis; i++) {
         // printf("updating pet as after %lld millis!\n", passed_millis);
         int random = rand() % 6;
@@ -190,48 +190,32 @@ int update_status(tamagotchi *pet, time_t passed_millis){
             case 0:
             case 1:
                 pet->food_status -= 1;
-                updates += 1;
+                updates.food_updated += 1;
+                updates.any_updated += 1;
                 break;
             case 2:
                 pet->happy_status -= 1;
-                updates += 1;
+                updates.happy_updated += 1;
+                updates.any_updated += 1;
                 break;
             case 3:
                 pet->health -= 1;
-                updates += 1;
+                updates.health_updated += 1;
+                updates.any_updated += 1;
                 break;
             case 4:
                 pet->hygiene -= 1;
-                updates += 1;
+                updates.hygiene_updated += 1;
+                updates.any_updated += 1;
                 break;
             case 5:
                 pet->stage += 1;
-                updates += 1;
+                updates.stage_updated += 1;
+                updates.any_updated += 1;
                 break;
             default:
                 break;
         }
     }
     return updates;
-}
-
-void *update_looper(pet_update *old_pet){
-    while (*old_pet->game_active){
-        sleep(1);
-        if (*old_pet->lock == 0) {
-            *old_pet->lock += 1; if (*old_pet->lock > 1) {
-                *old_pet->lock -= 1;
-                continue;
-            }
-            time_t time_dif = (long long int) time(NULL) - (long long int) *old_pet->last_update;
-            // printf("Old Millis: %lld\nNew Millis: %lld\nPassed Millis: %lld\n", *old_pet->last_update, time(NULL), time_dif);
-            *old_pet->last_update = time(NULL);
-            if(update_status(old_pet->pet, time_dif)){
-                old_pet->update_display += 1;
-            }
-
-            *old_pet->lock -= 1;
-        }
-    }
-    return NULL;
 }

@@ -14,14 +14,15 @@ typedef struct tamagotchi{
 
 } tamagotchi; 
 
-
 typedef struct {
-    int *update_display;
-    int *lock;
-    int *game_active;
-    time_t *last_update;
-    tamagotchi *pet;
-} pet_update;
+    int food_updated;
+    int happy_updated;
+    int health_updated;
+    int hygiene_updated;
+    int stage_updated;
+    int discipline_updated;
+    int any_updated;
+}updated_t;
 
 tamagotchi pet_init(char* name);
 void print_pet(tamagotchi pet, char *sprite, char *message);
@@ -35,4 +36,4 @@ void play(tamagotchi *pet, int fun);
 void scold(tamagotchi *pet, int intensity);
 void heal(tamagotchi *pet, int strength);
 
-void *update_looper(pet_update *old_pet);
+updated_t update_status(tamagotchi *pet, time_t passed_millis);

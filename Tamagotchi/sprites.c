@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 Sprites sprites_init(){
+    // TODO alle Sprites gleich groß; schöner anzusehen bei Wechsel!
     Sprites sprites;
     sprites.egg = "\
      IIIII \n\
