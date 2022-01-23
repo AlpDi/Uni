@@ -163,6 +163,89 @@ void feed(tamagotchi *pet, int food){
 
 
 void play(tamagotchi *pet, int fun){
+    int height = 20, width = 20;
+    int state, score, flag;
+
+
+
+    state = 0;
+    score = 0;
+    int x = height / 2;
+    int y = width / 2;
+
+    int fx = 1 + rand() % 19;
+    int fy = 1 + rand() % 19;
+
+
+    while(!state){
+        for(int i = 0; i < height; i++){
+        for(int j = 0; j < width; j++){
+            if(i == 0
+            || i == width - 1
+            || j == height - 1
+            || j == 0){
+                printf("H");
+            }
+             else {
+                if (i == x && j == y)
+                    printf("0");
+                else if (i == fx
+                         && j == fy)
+                    printf("*");
+                else
+                    printf(" ");
+            }
+        }
+        printf("\n");
+    }
+    switch(getchar()){
+         case 'a':
+            flag = 1;
+            break;
+        case 's':
+            flag = 2;
+            break;
+        case 'd':
+            flag = 3;
+            break;
+        case 'w':
+            flag = 4;
+            break;
+        case 'x':
+            state = 1;
+            break;
+        }
+
+    sleep(0.01);
+    switch (flag) {
+        case 1:
+            y--;
+            break;
+        case 2:
+            x++;
+            break;
+        case 3:
+            y++;
+            break;
+        case 4:
+            x--;
+            break;
+        default:
+            break;
+    }
+    if(x < 0
+    || x > height
+    || y > width){
+        state = 1;
+    }
+
+    if(x == fx && y == fy){
+        fx = 1 + rand() % 19;
+        fy = 1 + rand() % 19;
+        score += 1;
+    }
+
+    }
     pet->happy_status += fun;
     //create tictactoe field 
     // or snake?
