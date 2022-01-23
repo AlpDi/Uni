@@ -140,8 +140,7 @@ void sort_list(){
         while(ptr->next != NULL){    
             if(strcmp(ptr->Nachname, ptr->next->Nachname) > 0) {  
                 loop = 1;
-                swap(ptr, ptr->next);
-                break;  
+                swap(ptr, ptr->next);  
                 }  
             ptr=ptr->next;  
         }  
