@@ -204,39 +204,27 @@ void play(tamagotchi *pet, int fun){
 
         switch(getchar()){
             case 'a':
-                flag = 1;
-                break;
-            case 's':
-                flag = 2;
-                break;
-            case 'd':
-                flag = 3;
-                break;
-            case 'w':
-                flag = 4;
-                break;
-            case 'q':
-                state = 1;
-                break;
+            sleep(0.01);
+            y--;
+            break;
+        case 's':
+            sleep(0.01);
+            x++;
+            break;
+        case 'd':
+            sleep(0.01);
+            y++;
+            break;
+        case 'w':
+            sleep(0.01);
+            x--;
+            break;
+        case 'q':
+            sleep(0.01);
+            state = 1;
+            break;
             }
 
-        sleep(0.01);
-        switch (flag) {
-            case 1:
-                y--;
-                break;
-            case 2:
-                x++;
-                break;
-            case 3:
-                y++;
-                break;
-            case 4:
-                x--;
-                break;
-            default:
-                break;
-        }
         if(x < 0
         || x > height
         || y > width){
