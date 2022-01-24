@@ -250,7 +250,7 @@ int main(void){
                 break;
             case 's':
                 play(&terry, 1);
-                user_update.food_updated += 1;
+                user_update.happy_updated += 1;
                 user_update.any_updated += 1;
                 message_status = "you played with your tamagotchi";
                 break;
