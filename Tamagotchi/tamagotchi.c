@@ -1,3 +1,5 @@
+#define TIMELAPSE_FACTOR 1
+
 #include "tamagotchi.h"
 #include <stdio.h>
 #include <time.h>
@@ -51,7 +53,6 @@ tamagotchi pet_init(char *name){
     pet.name = name;
     pet.food_status = 0;
     pet.happy_status = 3;
-    pet.discipline = 0;
     pet.stage = 0;
     pet.hygiene = 3;
     pet.health = 3;
@@ -107,8 +108,8 @@ void print_pet(tamagotchi pet, char *sprite, char *message, char *dead_sprite){
     } 
     printf("\nName:      \t%s\n------------------------\n", pet.name);
 
-    printf("A: feed  S: play F: heal\n");
-    if(pet.stage >= 4 || pet.health <= 0){
+    printf("A: feed  S: play  D: clean  F: heal\n");
+    if(pet.stage >= 4){
         clear_screen();
         printf("%s", dead_sprite);
         printf("\n\n GAME OVER \n\n");
@@ -143,9 +144,6 @@ int load(char *savefile, tamagotchi *pet){
         }
         if (begins_with(data_line, "[HAPPY_STATUS]")){
             pet->happy_status = atoi(data_line+14);
-        }
-        if (begins_with(data_line, "[DISCIPLINE]")){
-            pet->discipline = atoi(data_line+12);
         }
         if (begins_with(data_line, "[STAGE]")){
             pet->stage = atoi(data_line+7);
@@ -195,7 +193,7 @@ int save(tamagotchi pet, char *savefile) {
 
     char save_data[512];
     time_t seconds = time(NULL);
-    sprintf(save_data, "[FOOD_STATUS]%d\n[HAPPY_STATUS]%d\n[DISCIPLINE]%d\n[STAGE]%d\n[HYGIENE]%d\n[HEALTH]%d\n[SECONDS]%lld\n[NAME]%s\n", pet.food_status, pet.happy_status, pet.discipline, pet.stage, pet.hygiene, pet.health, seconds, pet.name);
+    sprintf(save_data, "[FOOD_STATUS]%d\n[HAPPY_STATUS]%d\n[STAGE]%d\n[HYGIENE]%d\n[HEALTH]%d\n[SECONDS]%lld\n[NAME]%s\n", pet.food_status, pet.happy_status, pet.stage, pet.hygiene, pet.health, seconds, pet.name);
 
     fputs(save_data, (FILE *) file);
     fclose((FILE *) file);
@@ -294,23 +292,20 @@ void play(tamagotchi *pet){
 
 }
 
-void scold(tamagotchi *pet, int intensity){
-    pet->discipline += intensity;
-    // reduce fun when scolding? or remove completely?
+void clean(tamagotchi *pet, int intensity){
+    pet->hygiene += intensity;
 }
 
 void heal(tamagotchi *pet, int strength){
-    pet->hygiene += strength;
     pet->health += strength;
-    if (pet->hygiene > 10) {pet->hygiene = 10;}
-    if (pet->health > 10) {pet->health = 10;}
 }
 
 updated_t update_status(tamagotchi *pet, time_t passed_millis){
-    updated_t updates = {0, 0, 0, 0, 0, 0, 0};
+    updated_t updates = {0, 0, 0, 0, 0, 0};
+    passed_millis *= TIMELAPSE_FACTOR;
     for (int i = 0; i < passed_millis; i++) {
         if (pet->food_status > 0) {
-            int random = rand() % 10;
+            int random = rand() % 20;
             if (random < 3) {
                 pet->food_status -= 1;
                 updates.food_updated += 1;
@@ -318,15 +313,15 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
             }
         }
         if (pet->happy_status > 0) {
-            int random = rand() % (1 + pet->food_status);
-            if (random < 3) {
+            int random = rand() % (5 + 2 * pet->food_status);
+            if (random < 1) {
                 pet->happy_status -= 1;
                 updates.happy_updated += 1;
                 updates.any_updated += 1;
             }
         }
         if (pet->health > 0) {
-            int random = rand() % (3 + pet->hygiene);
+            int random = rand() % (10 + 5 * pet->hygiene);
             if (random < 1) {
                 pet->health -= 1;
                 updates.health_updated += 1;
@@ -334,7 +329,7 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
             }
         }
         if (pet->hygiene > 0) {
-            int random = rand() % 7;
+            int random = rand() % 70;
             if (random < 1) {
                 pet->hygiene -= 1;
                 updates.hygiene_updated += 1;
@@ -342,7 +337,7 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
             }
         }
         if (pet->stage < 6) {
-            int random = rand() % (5 + pet->happy_status);
+            int random = rand() % (10 + 10 * pet->happy_status);
             if (random < 1) {
                 pet->stage += 1;
                 updates.stage_updated += 1;
