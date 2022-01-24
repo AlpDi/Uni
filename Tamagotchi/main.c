@@ -144,6 +144,7 @@ int main(void){
     int input_menu; int failure = -1;
     do {
         do {
+            printf("N: New game\nL: Load save file\nQ: Quit\n");
             input_menu = getchar() | 32;
             while (input_menu != ('\n' | 32) && getchar() != '\n') {}
         } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
@@ -231,7 +232,6 @@ int main(void){
     while (loop){
 
         do {
-            printf("A: feed  S: play  D: scold F: heal\n");
             user_response = getchar();
             while (user_response != '\n' && getchar() != '\n'){}
             message_status = "";
