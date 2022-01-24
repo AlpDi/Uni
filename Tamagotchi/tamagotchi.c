@@ -304,37 +304,45 @@ void heal(tamagotchi *pet, int strength){
 updated_t update_status(tamagotchi *pet, time_t passed_millis){
     updated_t updates = {0, 0, 0, 0, 0, 0, 0};
     for (int i = 0; i < passed_millis; i++) {
-        // printf("updating pet as after %lld millis!\n", passed_millis);
-        int random = rand() % 6;
-        switch (random) {
-            case 0:
-            case 1:
+        if (pet->food_status > 0) {
+            int random = rand() % 10;
+            if (random < 3) {
                 pet->food_status -= 1;
                 updates.food_updated += 1;
                 updates.any_updated += 1;
-                break;
-            case 2:
+            }
+        }
+        if (pet->happy_status > 0) {
+            int random = rand() % (1 + pet->food_status);
+            if (random < 3) {
                 pet->happy_status -= 1;
                 updates.happy_updated += 1;
                 updates.any_updated += 1;
-                break;
-            case 3:
+            }
+        }
+        if (pet->health > 0) {
+            int random = rand() % (3 + pet->hygiene);
+            if (random < 1) {
                 pet->health -= 1;
                 updates.health_updated += 1;
                 updates.any_updated += 1;
-                break;
-            case 4:
+            }
+        }
+        if (pet->hygiene > 0) {
+            int random = rand() % 7;
+            if (random < 1) {
                 pet->hygiene -= 1;
                 updates.hygiene_updated += 1;
                 updates.any_updated += 1;
-                break;
-            case 5:
+            }
+        }
+        if (pet->stage < 6) {
+            int random = rand() % (5 + pet->happy_status);
+            if (random < 1) {
                 pet->stage += 1;
                 updates.stage_updated += 1;
                 updates.any_updated += 1;
-                break;
-            default:
-                break;
+            }
         }
     }
     return updates;
