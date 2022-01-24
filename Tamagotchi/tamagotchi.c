@@ -104,10 +104,10 @@ void print_pet(tamagotchi pet, char *sprite, char *message){
     } printf("\nHygiene:   \t");
     for (int i = 0; i < pet.hygiene; i++) {
         printf("🧼");
-    } printf("\nDiscipline:\t");
-    for (int i = 0; i < pet.discipline; i++) {
-        printf("d");
-    } printf("\nName:      \t%s\n------------------------\n", pet.name);
+    } 
+    printf("\nName:      \t%s\n------------------------\n", pet.name);
+    
+    printf("A: feed  S: play  D: scold F: heal\n");
 
 }
 
