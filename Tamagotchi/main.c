@@ -126,7 +126,7 @@ void *background_loop(void *void_pet){
         if (!*pet->lock && !*pet->pause && (updates.any_updated || pet->user_update->any_updated)) {
             clear_terminal();
             print_pet(*pet->pet, act_sprite, *pet->message);
-            printf("A: feed  S: play  D: scold F: heal\n");
+            
             if (pet->user_update->any_updated){
                 pet->user_update->any_updated = 0;
                 pet->user_update->discipline_updated = 0;
