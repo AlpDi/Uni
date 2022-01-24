@@ -90,7 +90,7 @@ void *background_loop(void *void_pet){
             if (!*pet->pause) {
                 updates = update_status(pet->pet, time_dif);
             }
-            *pet->lock -= 1;
+            *pet->lock = 0;
         }
 
 
