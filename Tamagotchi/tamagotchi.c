@@ -40,7 +40,7 @@
     #define PLATFORM_NAME NULL
 #endif
 
-void clear_terminal(){
+void clear_screen(){
     if (strcmp(PLATFORM_NAME, "windows") == 0){ system("cls"); }
     else if (strcmp(PLATFORM_NAME, "linux") == 0){ system("clear"); }
     else { printf("System %s was not expected.\nCant clear screen!\n\n", PLATFORM_NAME); }
@@ -223,7 +223,7 @@ void play(tamagotchi *pet, int fun){
 
 
     while(!state){
-        clear_terminal();
+        clear_screen();
         for(int i = 0; i < width; i++){
             for(int j = 0; j < height; j++){
                 if(i == 0
