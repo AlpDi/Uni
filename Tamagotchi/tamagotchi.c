@@ -203,7 +203,7 @@ void feed(tamagotchi *pet, int food){
 }
 
 
-void play(tamagotchi *pet, int fun){
+void play(tamagotchi *pet){
     time_t t;
 
     srand((unsigned) time(&t));
@@ -283,7 +283,7 @@ void play(tamagotchi *pet, int fun){
         }
 
         }
-    pet->happy_status += fun;
+    pet->happy_status += score;
     //create tictactoe field 
     // or snake?
     // or pong?

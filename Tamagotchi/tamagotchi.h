@@ -32,7 +32,7 @@ int save(tamagotchi pet, char *savefile);
 
 
 void feed(tamagotchi *pet, int food);
-void play(tamagotchi *pet, int fun);
+void play(tamagotchi *pet);
 void scold(tamagotchi *pet, int intensity);
 void heal(tamagotchi *pet, int strength);
 
