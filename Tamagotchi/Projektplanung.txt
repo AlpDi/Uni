@@ -5,12 +5,12 @@ A) Spezifikationen
  durch einen Zeitstempel ermöglicht, ein spiel im Hintergrund zu simulieren
 -Wenn man ein Spiel lädt kann die verstrichene Zeit simuliert werden
 -Bei einem neuen Spiel schlüpft der Tamagotchi aus einem Ei und wird benannt
--Der Tamagotchi hat ein Hunger-, Fröhlichkeits- und Disziplinmeter
+-Der Tamagotchi hat ein Hunger-, Fröhlichkeits- und Disziplinmeter   //Disziplin wurde durch Hygiene getauscht, Leben wurden hinzugefügt 
     -Hungermeter wird gefüllt indem man ihn mit Essen oder Snacks füttert
     -Fröhlichkeit indem man mit ihm Spiele spielt(TicTacToe?)
-    -Disziplin in dem man ihn bestraft wenn er eine Aktion verweigert
+    -Disziplin in dem man ihn bestraft wenn er eine Aktion verweigert //wurde gestrichen
 -Der Tamagotchi kann krank werden, wenn man ihn nicht sauber macht oder zu viele Snacks füttert
-    -Tamagotchi kann nicht gefüttert werden, solange er krank ist, er kann auch an krankheit sterben
+    -Tamagotchi kann nicht gefüttert werden, solange er krank ist, er kann auch an krankheit sterben //raus gelassen
     -kann durch Medizin geheilt werden
 -Der Tamagotchi durchläuft 4 Altersstufen(Ei, Baby, Teenager, Erwachsener) 
  und stirbt anschließend wenn er zu alt wird
@@ -32,12 +32,12 @@ tamagotchi.c:
 
 -void feed(tamagotchi *pet, int food);
 -void play(tamagotchi *pet, int fun);
--void scold(tamagotchi *pet, int intensity);
+-void scold(tamagotchi *pet, int intensity); //durch clean ersetzt
 -void heal(tamagotchi *pet, int strength);
 /*
--void checkStatus(tamagotchi *pet);
--void kill(tamagotchi *pet);
--void age(tamagotchi *pet);
+-void checkStatus(tamagotchi *pet); //wurde zu updated_t update_status(tamagotchi *pet, time_t passed_millis)
+-void kill(tamagotchi *pet); //anders gelöst
+-void age(tamagotchi *pet); //update_status behandelt alle status updates
 */
 -void update_status(tamagotchi *pet, int millis);  // iwie Zeit einbinden!
 
@@ -55,5 +55,6 @@ main.c:
     -switch case
     -keyboard input
 
-
-void create_threads(Game *game);
+//erweitert durch
+-void *background_loop(void *void_pet);
+-struct pet_update;
