@@ -149,7 +149,6 @@ int main(void){
         } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
         switch (input_menu) {
             case 'n':
-                // new tamagotchi
                 printf("How do you want to name your tamagotchi?\n");
                 char name_buffer[255];
                 int j = 0;
@@ -192,7 +191,6 @@ int main(void){
                 clear_terminal();
                 break;
             case 'l':
-                // load tamagotchi
                 printf("Loading from save file...\n");
                 terry = pet_init("");
                 failure = load("save", &terry);
