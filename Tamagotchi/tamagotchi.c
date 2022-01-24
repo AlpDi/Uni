@@ -108,6 +108,11 @@ void print_pet(tamagotchi pet, char *sprite, char *message){
     printf("\nName:      \t%s\n------------------------\n", pet.name);
 
     printf("A: feed  S: play F: heal\n");
+    if(pet.stage >= 4){
+        clear_screen();
+        printf("%s", sprite);
+        printf("\n\n        GAME OVER \n\n");
+    }
 
 }
 
@@ -344,6 +349,7 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
                 updates.any_updated += 1;
             }
         }
+
     }
     return updates;
 }
