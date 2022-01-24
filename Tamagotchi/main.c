@@ -78,30 +78,23 @@ void *background_loop(void *void_pet){
     Sprites sprites = sprites_init();
     char *act_sprite = "";
     while (*pet->game_active){
-        updated_t updates = {0, 0, 0, 0, 0, 0, 0};
+        updated_t updates = {0, 0, 0, 0, 0, 0};
         if (!*pet->lock){
             *pet->lock += 1;
             if (*pet->lock > 1) {
                 *pet->lock -= 1;
                 continue;
             }
-            if (*pet->last_update) {
-                time_t time_dif = (time_t) time(NULL) - *pet->last_update;
-                *pet->last_update = time(NULL);
-                if (!*pet->pause) {
-                    updates = update_status(pet->pet, time_dif);
-                }
+            time_t time_dif = (time_t) time(NULL) - *pet->last_update;
+            *pet->last_update = time(NULL);
+            if (!*pet->pause) {
+                updates = update_status(pet->pet, time_dif);
             }
             *pet->lock = 0;
         }
 
-        if (!*pet->last_update) {
-            updates.stage_updated = 1;
-            updates.any_updated = 1;
-            *pet->last_update = time(NULL);
-        }
 
-        if (!*pet->pause && updates.stage_updated) {
+        if (!*pet->pause && (updates.stage_updated || pet->user_update->any_updated)) {
             switch (pet->pet->stage) {
                 case 0:
                     act_sprite = sprites.egg;
@@ -129,7 +122,6 @@ void *background_loop(void *void_pet){
             
             if (pet->user_update->any_updated){
                 pet->user_update->any_updated = 0;
-                pet->user_update->discipline_updated = 0;
                 pet->user_update->stage_updated = 0;
                 pet->user_update->hygiene_updated = 0;
                 pet->user_update->health_updated = 0;
@@ -219,13 +211,12 @@ int main(void){
     pet_update remote_pet;
     remote_pet.pet = &terry;
     remote_pet.game_active = &loop;
-    time_t last_update = (input_menu == 'n')? 0 : time(NULL);
-
+    time_t last_update = time(NULL);
     remote_pet.last_update = &last_update;
     remote_pet.lock = &lock_vars;
     remote_pet.message = &message_status;
     remote_pet.pause = &pause;
-    updated_t user_update = {0, 0, 0, 0, 0, 0, 0};
+    updated_t user_update = {0, 0, 0, 0, 1, 1};
     remote_pet.user_update = &user_update;
 
 
@@ -263,10 +254,10 @@ int main(void){
                 message_status = "you played with your tamagotchi";
                 break;
             case 'd':
-                scold(&terry, 1);
-                user_update.discipline_updated += 1;
+                clean(&terry, 1);
+                user_update.hygiene_updated += 1;
                 user_update.any_updated += 1;
-                message_status = "you scolded your tamagotchi";
+                message_status = "you cleaned your tamagotchi";
                 break;
             case 'f':
                 heal(&terry, 1);
