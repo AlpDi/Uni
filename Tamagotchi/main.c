@@ -65,7 +65,7 @@ typedef struct {
 } pet_update;
 
 
-void clear_terminal(){ //*
+void clear_terminal(){// /*
     if (strcmp(PLATFORM_NAME, "windows") == 0){ system("cls"); }
     else if (strcmp(PLATFORM_NAME, "linux") == 0){ system("clear"); }
     else { printf("System %s was not expected.\nCant clear screen!\n\n", PLATFORM_NAME); }
@@ -118,7 +118,7 @@ void *background_loop(void *void_pet){
 
         if (!*pet->lock && !*pet->pause && (updates.any_updated || pet->user_update->any_updated)) {
             clear_terminal();
-            print_pet(*pet->pet, act_sprite, *pet->message);
+            print_pet(*pet->pet, act_sprite, *pet->message, sprites.dead);
             
             if (pet->user_update->any_updated){
                 pet->user_update->any_updated = 0;
@@ -139,6 +139,7 @@ void *background_loop(void *void_pet){
 
 int main(void){
     tamagotchi terry;
+    Sprites sprites = sprites_init();
 
     int input_menu; int failure = -1;
     do {

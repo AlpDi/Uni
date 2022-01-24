@@ -76,7 +76,7 @@ int begins_with(char *long_string, char *short_searchstring){
     return (short_searchstring[i]) ? 0 : 1;
 }
 
-void print_pet(tamagotchi pet, char *sprite, char *message){
+void print_pet(tamagotchi pet, char *sprite, char *message, char *dead_sprite){
     /*
     printf("name: %s\n", pet.name);
     printf("food status: %d\n", pet.food_updated);
@@ -111,10 +111,10 @@ void print_pet(tamagotchi pet, char *sprite, char *message){
     printf("A: feed  S: play  D: clean  F: heal\n");
     if(pet.stage >= 4){
         clear_screen();
-        printf("%s", sprite);
-        printf("\n\n        GAME OVER \n\n");
+        printf("%s", dead_sprite);
+        printf("\n\n GAME OVER \n\n");
+        exit(0);
     }
-
 }
 
 char data_line[256] = "";
