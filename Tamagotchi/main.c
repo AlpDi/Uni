@@ -61,7 +61,7 @@ typedef struct {
     int *pause;
     time_t *last_update;
     tamagotchi *pet;
-    char *message;
+    char **message;
 } pet_update;
 
 
@@ -118,8 +118,8 @@ void *background_loop(void *void_pet){
 
         if (!*pet->lock && !*pet->pause && (updates.any_updated || pet->user_update->any_updated)) {
             clear_terminal();
-            print_pet(*pet->pet, act_sprite, pet->message);
-            printf("%s", pet->message);
+            print_pet(*pet->pet, act_sprite, *pet->message);
+            printf("A: feed  S: play  D: scold F: heal\n");
             if (pet->user_update->any_updated){
                 pet->user_update->any_updated = 0;
                 pet->user_update->discipline_updated = 0;
@@ -144,7 +144,6 @@ int main(void){
     int input_menu; int failure = -1;
     do {
         do {
-            printf("N: New game\nL: Load save file\nQ: Quit\n");
             input_menu = getchar() | 32;
             while (input_menu != ('\n' | 32) && getchar() != '\n') {}
         } while (input_menu != 'n' && input_menu != 'l' && input_menu != 'q');
@@ -217,7 +216,7 @@ int main(void){
     time_t last_update = time(NULL);
     remote_pet.last_update = &last_update;
     remote_pet.lock = &lock_vars;
-    remote_pet.message = message_status;
+    remote_pet.message = &message_status;
     remote_pet.pause = &pause;
     updated_t user_update = {0, 0, 0, 0, 0, 0, 0};
     remote_pet.user_update = &user_update;
@@ -235,7 +234,9 @@ int main(void){
 
         do {
             printf("A: feed  S: play  D: scold F: heal\n");
-            user_response = getchar(); while (user_response != '\n' && getchar() != '\n'){}
+            user_response = getchar();
+            while (user_response != '\n' && getchar() != '\n'){}
+            message_status = "";
             user_response = user_response | 32;
         } while (user_response != 'a' && user_response != 's' && user_response != 'd' && user_response != 'f' && user_response != 'q');
         pause = 1;
@@ -247,21 +248,25 @@ int main(void){
                 user_update.food_updated += 1;
                 user_update.any_updated += 1;
                 // TODO food menu
+                message_status = "you fed your tamagotchi";
                 break;
             case 's':
                 play(&terry, 1);
                 user_update.food_updated += 1;
                 user_update.any_updated += 1;
+                message_status = "you played with your tamagotchi";
                 break;
             case 'd':
                 scold(&terry, 1);
                 user_update.discipline_updated += 1;
                 user_update.any_updated += 1;
+                message_status = "you scolded your tamagotchi";
                 break;
             case 'f':
                 heal(&terry, 1);
                 user_update.health_updated += 1;
                 user_update.any_updated += 1;
+                message_status = "you healed your tamagotchi";
                 break;
             case 'q': 
                 clear_terminal();
