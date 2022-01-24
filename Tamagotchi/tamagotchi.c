@@ -106,8 +106,8 @@ void print_pet(tamagotchi pet, char *sprite, char *message){
         printf("🧼");
     } 
     printf("\nName:      \t%s\n------------------------\n", pet.name);
-    
-    printf("A: feed  S: play  D: scold F: heal\n");
+
+    printf("A: feed  S: play F: heal\n");
 
 }
 
@@ -209,12 +209,13 @@ void play(tamagotchi *pet){
     srand((unsigned) time(&t));
 
     int height = 20, width = 10;
-    int state, score;
+    int state; 
+    int *score = (int*) malloc(sizeof (int));
 
 
 
     state = 0;
-    score = 0;
+    *score = 0;
     int x = width / 2;
     int y = height / 2;
 
@@ -244,7 +245,7 @@ void play(tamagotchi *pet){
             }
         printf("\n");
         }
-        printf("%d\n", score);
+        printf("%d\n", *score);
 
 
         switch(getchar()){
@@ -279,14 +280,13 @@ void play(tamagotchi *pet){
         if(x == fx && y == fy){
             fx = 1 + rand() % 8;
             fy = 1 + rand() % 18;
-            score += 1;
+            *score += 1;
         }
 
         }
-    pet->happy_status += score;
-    //create tictactoe field 
-    // or snake?
-    // or pong?
+    pet->happy_status += *score;
+    free(score);
+
 }
 
 void scold(tamagotchi *pet, int intensity){
