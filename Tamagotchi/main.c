@@ -85,14 +85,21 @@ void *background_loop(void *void_pet){
                 *pet->lock -= 1;
                 continue;
             }
-            time_t time_dif = (time_t) time(NULL) - *pet->last_update;
-            *pet->last_update = time(NULL);
-            if (!*pet->pause) {
-                updates = update_status(pet->pet, time_dif);
+            if (*pet->last_update) {
+                time_t time_dif = (time_t) time(NULL) - *pet->last_update;
+                *pet->last_update = time(NULL);
+                if (!*pet->pause) {
+                    updates = update_status(pet->pet, time_dif);
+                }
             }
             *pet->lock = 0;
         }
 
+        if (!*pet->last_update) {
+            updates.stage_updated = 1;
+            updates.any_updated = 1;
+            *pet->last_update = time(NULL);
+        }
 
         if (!*pet->pause && updates.stage_updated) {
             switch (pet->pet->stage) {
@@ -212,7 +219,8 @@ int main(void){
     pet_update remote_pet;
     remote_pet.pet = &terry;
     remote_pet.game_active = &loop;
-    time_t last_update = time(NULL);
+    time_t last_update = (input_menu == 'n')? 0 : time(NULL);
+
     remote_pet.last_update = &last_update;
     remote_pet.lock = &lock_vars;
     remote_pet.message = &message_status;
