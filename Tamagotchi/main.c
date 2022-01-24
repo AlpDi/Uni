@@ -216,7 +216,7 @@ int main(void){
     remote_pet.lock = &lock_vars;
     remote_pet.message = &message_status;
     remote_pet.pause = &pause;
-    updated_t user_update = {0, 0, 0, 0, 1, 1};
+    updated_t user_update = {1, 1, 1, 1, 1, 1};
     remote_pet.user_update = &user_update;
 
 
@@ -244,7 +244,6 @@ int main(void){
                 feed(&terry, 1);
                 user_update.food_updated += 1;
                 user_update.any_updated += 1;
-                // TODO food menu
                 message_status = "you fed your tamagotchi";
                 break;
             case 's':

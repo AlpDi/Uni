@@ -163,6 +163,7 @@ int load(char *savefile, tamagotchi *pet){
     time_t time_offline = loadtime - savetime;
     printf("You were away for %lld seconds!\n", time_offline);
     // TODO simulate time away based on time_offline (millis)
+    update_status(pet, time_offline);
 
     return 0;
 }
