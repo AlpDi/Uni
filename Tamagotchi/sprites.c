@@ -3,9 +3,8 @@
 #include <stdio.h>
 
 Sprites sprites_init(){
-    // TODO alle Sprites gleich groß; schöner anzusehen bei Wechsel!
     Sprites sprites;
-    sprites.egg = "\
+    sprites.egg = "\n\n\n\n\n\n\n\n\n\n\
      IIIII \n\
     IIIIIII\n\
     IIIIIII\n\
@@ -13,20 +12,20 @@ Sprites sprites_init(){
      IIIII \0";
 
 
-     sprites.baby = "\
+     sprites.baby = "\n\n\n\n\n\n\n\n\n\n\n\
               .-.\n\
      (_______()6 `-,\n\
      (   __   /''` ___\n\
      //\\\\ //\\\\    /___\\ \0";
 
 
-     sprites.teen = "\
+     sprites.teen = "\n\n\n\n\n\n\n\n\n\n\n\
                    .-.\n\
      (____________()6 `-,\n\
      (   _______   /''` ___\n\
      //\\\\      //\\\\    /___\\ \0";
 
-     sprites.adult = "\
+     sprites.adult = "\n\n\n\n\n\n\n\n\n\n\n\
                                   .-.\n\
      (___________________________()6 `-,\n\
      (   ______________________   /''`  ___\n\
