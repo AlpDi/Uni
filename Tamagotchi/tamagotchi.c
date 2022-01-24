@@ -306,15 +306,15 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
     passed_millis *= TIMELAPSE_FACTOR;
     for (int i = 0; i < passed_millis; i++) {
         if (pet->food_status > 0) {
-            int random = rand() % 20;
-            if (random < 3) {
+            int random = rand() % 100;
+            if (random < 1) {
                 pet->food_status -= 1;
                 updates.food_updated += 1;
                 updates.any_updated += 1;
             }
         }
         if (pet->happy_status > 0) {
-            int random = rand() % (5 + 2 * pet->food_status);
+            int random = rand() % (50 + 20 * pet->food_status);
             if (random < 1) {
                 pet->happy_status -= 1;
                 updates.happy_updated += 1;
@@ -322,7 +322,7 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
             }
         }
         if (pet->health > 0) {
-            int random = rand() % (10 + 5 * pet->hygiene);
+            int random = rand() % (100 + 50 * pet->hygiene);
             if (random < 1) {
                 pet->health -= 1;
                 updates.health_updated += 1;
@@ -330,7 +330,7 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
             }
         }
         if (pet->hygiene > 0) {
-            int random = rand() % 70;
+            int random = rand() % 70 + (10 * pet->happy_status);
             if (random < 1) {
                 pet->hygiene -= 1;
                 updates.hygiene_updated += 1;
@@ -338,7 +338,7 @@ updated_t update_status(tamagotchi *pet, time_t passed_millis){
             }
         }
         if (pet->stage < 6) {
-            int random = rand() % (10 + 10 * pet->happy_status);
+            int random = rand() % (100 + 100 * pet->happy_status);
             if (random < 1) {
                 pet->stage += 1;
                 updates.stage_updated += 1;
